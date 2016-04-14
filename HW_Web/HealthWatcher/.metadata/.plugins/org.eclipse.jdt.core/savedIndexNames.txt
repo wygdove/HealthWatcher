@@ -1,0 +1,20 @@
+INDEX VERSION 1.127+D:\WYG\00MyCode\github\HealthWatcher\HW_Web\HealthWatcher\.metadata\.plugins\org.eclipse.jdt.core
+3076794410.index
+2041258405.index
+354508758.index
+3040245823.index
+3434853855.index
+3872782474.index
+2414430930.index
+3480840208.index
+1722049446.index
+105857594.index
+865515890.index
+907497989.index
+2243513103.index
+3392525819.index
+2791135196.index
+1609191593.index
+4034905948.index
+3836328327.index
+2678390326.index
