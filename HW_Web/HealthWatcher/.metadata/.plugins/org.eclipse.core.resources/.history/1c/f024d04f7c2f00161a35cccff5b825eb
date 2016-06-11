@@ -1,0 +1,20 @@
+package EnvicloudFactory;
+
+
+public class Test {
+
+	static final String BASEURL="";
+	static final String ACCESSID="D3LNZG92ZTE0NDUXNTM2NTG4MZG="; 
+	
+	
+	private static String getRealtimeAirInfoGetRsp(String citycode) {
+		String response=null;
+		String url=BASEURL+"/getRealtimeAir?citycode="+citycode+"&ak="+ACCESSID;
+		return response;
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

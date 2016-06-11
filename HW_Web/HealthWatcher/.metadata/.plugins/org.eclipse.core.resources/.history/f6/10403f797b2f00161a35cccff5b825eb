@@ -1,0 +1,12 @@
+package EnvicloudFactory;
+
+public class Test {
+
+	final String ACCESSID=""; 
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

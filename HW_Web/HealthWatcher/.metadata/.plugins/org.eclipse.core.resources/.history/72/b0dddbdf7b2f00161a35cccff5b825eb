@@ -1,0 +1,11 @@
+package EnvicloudFactory;
+
+public class Test {
+
+	final String ACCESSID="D3LNZG92ZTE0NDUXNTM2NTG4MZG="; 
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

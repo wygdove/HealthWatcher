@@ -1,0 +1,77 @@
+package EnvicloudFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONObject;
+import org.restlet.data.MediaType;
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
+import org.restlet.resource.ClientResource;
+
+import com.google.gson.Gson;
+
+public class Test {
+
+	static final String BASEURL="http://service.envicloud.cn:8082/api/";
+	static final String ACCESSID="D3LNZG92ZTE0NDUXNTM2NTG4MZG="; 
+
+	/**
+	 * 获取Get方式实时大气环境查询接口的响应
+	 * @param citycode 参数：查询城市编码
+	 * @return
+	 */
+	private static String getRealtimeWeatherForecastGetRsp(String citycode) {
+		String response=null;
+		String url=BASEURL+"getWeatherForecast?citycode="+citycode+"&ak="+ACCESSID;
+		ClientResource clientResource=new ClientResource(url);
+		try{
+			Representation reply=clientResource.get();
+			response=reply.getText();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			clientResource.release();
+		}
+		return response;
+	}
+	
+	private static String getRealtimeWeatherForecastPostRsp(List<String> citycodes) {
+		String response=null;
+		String url=BASEURL+"getWeatherForecast";
+		Map<String,Object> reqMap=new HashMap<String,Object>();
+        reqMap.put("accessId", ACCESSID);
+        reqMap.put("citycodes", citycodes);
+		Gson gson=new Gson();
+		String reqJson=gson.toJson(reqMap);
+		ClientResource clientResource=new ClientResource(url);
+		try {
+			Representation rep=new JsonRepresentation(new JSONObject(reqJson));
+			rep.setMediaType(MediaType.APPLICATION_JSON);
+			Representation reply=clientResource.post(rep);
+			response=reply.getText();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			clientResource.release();
+		}
+		return response;
+	}
+	
+	public static void main(String[] args) {
+		String citycode="101180801"; // 开封
+		System.out.println(getRealtimeWeatherForecastGetRsp(citycode));
+		
+		List<String> citycodes=new ArrayList<String>();
+		citycodes.add(citycode);
+		citycodes.add("101010100"); // 北京
+		System.out.println(getRealtimeWeatherForecastPostRsp(citycodes));
+	}
+
+}

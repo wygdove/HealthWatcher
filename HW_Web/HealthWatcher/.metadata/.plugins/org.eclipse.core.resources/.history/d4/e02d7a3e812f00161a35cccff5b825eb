@@ -1,0 +1,71 @@
+package EnvicloudFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONObject;
+import org.restlet.data.MediaType;
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
+import org.restlet.resource.ClientResource;
+
+import com.google.gson.Gson;
+
+public class Test {
+
+	static final String BASEURL = "http://service.envicloud.cn:8082/api/";
+	static final String ACCESSID = "D3LNZG92ZTE0NDUXNTM2NTG4MZG=";
+
+	/**
+	 * 获取Get方式实时大气环境查询接口的响应
+	 * 
+	 * @param citycode
+	 *            参数：查询城市编码
+	 * @return
+	 */
+	private static String getRealtimeWeatherForecastGetRsp(String citycode) {
+		String response = null;
+		String url = BASEURL + "getWeatherForecast?citycode=" + citycode + "&ak=" + ACCESSID;
+		ClientResource clientResource = new ClientResource(url);
+		try {
+			Representation reply = clientResource.get();
+			response = reply.getText();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			clientResource.release();
+		}
+		return response;
+	}
+
+	private static String getRealtimeAirInfoGetRsp(String citycode) {
+		String response = null;
+
+		String url = BASEURL + "/getRealtimeAir?citycode=" + citycode + "&ak=" + ACCESSID;
+
+		ClientResource clientResource = new ClientResource(url);
+		try {
+			Representation reply = clientResource.get();
+			response = reply.getText();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		} 
+		finally {
+			clientResource.release();
+		}
+		return response;
+	}
+
+	public static void main(String[] args) {
+		String citycode = "101190101";
+		System.out.println(getRealtimeAirInfoGetRsp(citycode));
+
+		List<String> citycodes = new ArrayList<String>();
+		citycodes.add("101190101");
+		System.out.println(getRealtimeAirInfoPostRsp(citycodes));
+	}
+
+}
