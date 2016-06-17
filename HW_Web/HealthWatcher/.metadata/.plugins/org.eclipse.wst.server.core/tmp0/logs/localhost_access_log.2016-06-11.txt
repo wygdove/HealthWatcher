@@ -77,3 +77,12 @@
 127.0.0.1 - - [11/Jun/2016:11:22:19 +0800] "GET /HealthWatcher/bootstrap/css/bootstrap.min.css.map HTTP/1.1" 200 54416
 127.0.0.1 - - [11/Jun/2016:11:34:08 +0800] "GET /HealthWatcher/pages/environment/historicalr.jsp HTTP/1.1" 200 17062
 127.0.0.1 - - [11/Jun/2016:11:34:21 +0800] "GET /HealthWatcher/pages/environment/Pollution.jsp HTTP/1.1" 200 13809
+127.0.0.1 - - [11/Jun/2016:12:05:50 +0800] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [11/Jun/2016:12:06:55 +0800] "GET /HealthWatcher/pages/index/index.jsp HTTP/1.1" 200 10327
+127.0.0.1 - - [11/Jun/2016:12:07:32 +0800] "GET /HealthWatcher/pages/environment/earthquake1.jsp HTTP/1.1" 200 14755
+127.0.0.1 - - [11/Jun/2016:12:07:37 +0800] "GET /HealthWatcher/pages/environment/ HTTP/1.1" 404 1058
+127.0.0.1 - - [11/Jun/2016:12:07:46 +0800] "GET /HealthWatcher/pages/environment/historicalr.jsp HTTP/1.1" 200 17062
+127.0.0.1 - - [11/Jun/2016:12:07:52 +0800] "GET /HealthWatcher/pages/environment/weatherforecast.html HTTP/1.1" 200 21029
+127.0.0.1 - - [11/Jun/2016:12:07:52 +0800] "GET /HealthWatcher/plugins/chartjs/Chart.min.js HTTP/1.1" 200 52103
+127.0.0.1 - - [11/Jun/2016:12:07:52 +0800] "GET /HealthWatcher/plugins/fastclick/fastclick.js HTTP/1.1" 200 26806
+127.0.0.1 - - [11/Jun/2016:12:07:52 +0800] "GET /HealthWatcher/dist/js/demo.js HTTP/1.1" 200 17606
