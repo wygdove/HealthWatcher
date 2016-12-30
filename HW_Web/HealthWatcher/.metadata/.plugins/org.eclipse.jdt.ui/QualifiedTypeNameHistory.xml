@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="org.restlet.resource.ClientResource"/>
-<fullyQualifiedTypeName name="org.restlet.ext.json.JsonRepresentation"/>
-<fullyQualifiedTypeName name="org.json.JSONObject"/>
-<fullyQualifiedTypeName name="org.restlet.data.MediaType"/>
-</qualifiedTypeNameHistroy>
