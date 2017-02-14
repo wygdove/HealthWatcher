@@ -25,9 +25,9 @@ public class TestController {
 	@Resource
 	private ITestService testService;
 	
-	@RequestMapping("test")
+	@RequestMapping("testproject")
 	public String index(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
-		_log.info("controller:/test");
+		_log.info("controller:/testproject");
 		String str=request.getParameter("str");
 		str+="lalala";
 		str=testService.dotest(str);

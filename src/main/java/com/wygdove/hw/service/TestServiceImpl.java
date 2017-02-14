@@ -1,4 +1,4 @@
-package com.wygdove.hw.service.impl;
+package com.wygdove.hw.service;
 
 import javax.annotation.Resource;
 
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.wygdove.hw.mybatis.dao.HwUserMapper;
 import com.wygdove.hw.mybatis.model.HwUser;
-import com.wygdove.hw.service.ITestService;
 
 /**
  * @author wygdove
