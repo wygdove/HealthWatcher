@@ -21,9 +21,12 @@
 			targetProject="healthwatcher" type="XMLMAPPER" />
 
 
+		<!--
 		<table schema="healthwatcher" tableName="hw_user">
 			<generatedKey column="user_id" sqlStatement="mysql" identity="true" />
 		</table>
+		-->
+		
 		
 		
 	</context>
