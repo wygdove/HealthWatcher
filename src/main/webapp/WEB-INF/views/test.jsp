@@ -8,7 +8,7 @@
 <html>
 
 <head>
-<base href="<%=basePath%>views/">
+<base href="<%=basePath%>/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>

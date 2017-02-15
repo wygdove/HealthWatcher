@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wygdove.hw.mybatis.dao.EnviCitycodeMapper">
+  <resultMap id="BaseResultMap" type="com.wygdove.hw.mybatis.model.EnviCitycode">
+    <id column="AREAID" jdbcType="VARCHAR" property="areaid" />
+    <result column="NAMEEN" jdbcType="VARCHAR" property="nameen" />
+    <result column="NAMECN" jdbcType="VARCHAR" property="namecn" />
+    <result column="DISTRICTEN" jdbcType="VARCHAR" property="districten" />
+    <result column="DISTRICTCN" jdbcType="VARCHAR" property="districtcn" />
+    <result column="PROVEN" jdbcType="VARCHAR" property="proven" />
+    <result column="PROVCN" jdbcType="VARCHAR" property="provcn" />
+    <result column="NATIONEN" jdbcType="VARCHAR" property="nationen" />
+    <result column="NATIONCN" jdbcType="VARCHAR" property="nationcn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AREAID, NAMEEN, NAMECN, DISTRICTEN, DISTRICTCN, PROVEN, PROVCN, NATIONEN, NATIONCN
+  </sql>
+  <select id="selectByExample" parameterType="com.wygdove.hw.mybatis.model.EnviCitycodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from envi_citycode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from envi_citycode
+    where AREAID = #{areaid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from envi_citycode
+    where AREAID = #{areaid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wygdove.hw.mybatis.model.EnviCitycodeExample">
+    delete from envi_citycode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wygdove.hw.mybatis.model.EnviCitycode">
+    <selectKey keyProperty="areaid" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into envi_citycode (NAMEEN, NAMECN, DISTRICTEN, 
+      DISTRICTCN, PROVEN, PROVCN, 
+      NATIONEN, NATIONCN)
+    values (#{nameen,jdbcType=VARCHAR}, #{namecn,jdbcType=VARCHAR}, #{districten,jdbcType=VARCHAR}, 
+      #{districtcn,jdbcType=VARCHAR}, #{proven,jdbcType=VARCHAR}, #{provcn,jdbcType=VARCHAR}, 
+      #{nationen,jdbcType=VARCHAR}, #{nationcn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wygdove.hw.mybatis.model.EnviCitycode">
+    <selectKey keyProperty="areaid" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into envi_citycode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nameen != null">
+        NAMEEN,
+      </if>
+      <if test="namecn != null">
+        NAMECN,
+      </if>
+      <if test="districten != null">
+        DISTRICTEN,
+      </if>
+      <if test="districtcn != null">
+        DISTRICTCN,
+      </if>
+      <if test="proven != null">
+        PROVEN,
+      </if>
+      <if test="provcn != null">
+        PROVCN,
+      </if>
+      <if test="nationen != null">
+        NATIONEN,
+      </if>
+      <if test="nationcn != null">
+        NATIONCN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nameen != null">
+        #{nameen,jdbcType=VARCHAR},
+      </if>
+      <if test="namecn != null">
+        #{namecn,jdbcType=VARCHAR},
+      </if>
+      <if test="districten != null">
+        #{districten,jdbcType=VARCHAR},
+      </if>
+      <if test="districtcn != null">
+        #{districtcn,jdbcType=VARCHAR},
+      </if>
+      <if test="proven != null">
+        #{proven,jdbcType=VARCHAR},
+      </if>
+      <if test="provcn != null">
+        #{provcn,jdbcType=VARCHAR},
+      </if>
+      <if test="nationen != null">
+        #{nationen,jdbcType=VARCHAR},
+      </if>
+      <if test="nationcn != null">
+        #{nationcn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wygdove.hw.mybatis.model.EnviCitycodeExample" resultType="java.lang.Long">
+    select count(*) from envi_citycode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update envi_citycode
+    <set>
+      <if test="record.areaid != null">
+        AREAID = #{record.areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameen != null">
+        NAMEEN = #{record.nameen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namecn != null">
+        NAMECN = #{record.namecn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.districten != null">
+        DISTRICTEN = #{record.districten,jdbcType=VARCHAR},
+      </if>
+      <if test="record.districtcn != null">
+        DISTRICTCN = #{record.districtcn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proven != null">
+        PROVEN = #{record.proven,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provcn != null">
+        PROVCN = #{record.provcn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationen != null">
+        NATIONEN = #{record.nationen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationcn != null">
+        NATIONCN = #{record.nationcn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update envi_citycode
+    set AREAID = #{record.areaid,jdbcType=VARCHAR},
+      NAMEEN = #{record.nameen,jdbcType=VARCHAR},
+      NAMECN = #{record.namecn,jdbcType=VARCHAR},
+      DISTRICTEN = #{record.districten,jdbcType=VARCHAR},
+      DISTRICTCN = #{record.districtcn,jdbcType=VARCHAR},
+      PROVEN = #{record.proven,jdbcType=VARCHAR},
+      PROVCN = #{record.provcn,jdbcType=VARCHAR},
+      NATIONEN = #{record.nationen,jdbcType=VARCHAR},
+      NATIONCN = #{record.nationcn,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wygdove.hw.mybatis.model.EnviCitycode">
+    update envi_citycode
+    <set>
+      <if test="nameen != null">
+        NAMEEN = #{nameen,jdbcType=VARCHAR},
+      </if>
+      <if test="namecn != null">
+        NAMECN = #{namecn,jdbcType=VARCHAR},
+      </if>
+      <if test="districten != null">
+        DISTRICTEN = #{districten,jdbcType=VARCHAR},
+      </if>
+      <if test="districtcn != null">
+        DISTRICTCN = #{districtcn,jdbcType=VARCHAR},
+      </if>
+      <if test="proven != null">
+        PROVEN = #{proven,jdbcType=VARCHAR},
+      </if>
+      <if test="provcn != null">
+        PROVCN = #{provcn,jdbcType=VARCHAR},
+      </if>
+      <if test="nationen != null">
+        NATIONEN = #{nationen,jdbcType=VARCHAR},
+      </if>
+      <if test="nationcn != null">
+        NATIONCN = #{nationcn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AREAID = #{areaid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wygdove.hw.mybatis.model.EnviCitycode">
+    update envi_citycode
+    set NAMEEN = #{nameen,jdbcType=VARCHAR},
+      NAMECN = #{namecn,jdbcType=VARCHAR},
+      DISTRICTEN = #{districten,jdbcType=VARCHAR},
+      DISTRICTCN = #{districtcn,jdbcType=VARCHAR},
+      PROVEN = #{proven,jdbcType=VARCHAR},
+      PROVCN = #{provcn,jdbcType=VARCHAR},
+      NATIONEN = #{nationen,jdbcType=VARCHAR},
+      NATIONCN = #{nationcn,jdbcType=VARCHAR}
+    where AREAID = #{areaid,jdbcType=VARCHAR}
+  </update>
+</mapper>

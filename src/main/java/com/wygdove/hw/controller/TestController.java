@@ -32,6 +32,7 @@ public class TestController {
 		str+="lalala";
 		str=testService.dotest(str);
 		map.addAttribute("str",str);
+		_log.info("controller:/testproject"+str);
 		return "test";
 	}
 
