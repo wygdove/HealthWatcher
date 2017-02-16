@@ -58,7 +58,7 @@
 												<div class="modal-body" style="height: 100%">
 													<div class="form-group">
 														<textarea id="message" name="message" class="form-control"
-															style="height: 230px; margin-top: 20px"></textarea>
+															style="height: 230px; margin-top: 20px;resize: none"></textarea>
 													</div>
 												</div>
 												<div class="modal-footer">
@@ -144,7 +144,7 @@
 							<span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="test">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">test</span>
 							</a></li>
@@ -159,31 +159,69 @@
 		</nav>
 
 		<div id="page-wrapper" class="gray-bg dashbard-1">
-			<div class="modal inmodal" id="addmessage" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content animated bounceInRight">
-						<div class="modal-body" style="height: 100%;">
-							<form class="form-horizontal">
-								<div class="form-group">
-									<h2 style="text-align: center;">添加成功!</h2>
-								</div>
-								<div class="modal-footer" style="text-align: center;">
-									<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+					<ul class="nav navbar-top-links navbar-left">
+					  <li class="dropdown hidden-xs">
+						<a class="right-sidebar-toggle" aria-expanded="false" style="padding:12px 12px 10px 12px;">
+							<select class="selecter" id="select_city" style="width:100px;">
+							  <option value="beijing">北京</option>
+							  <option value="tianjin">天津</option>
+							  <option value="kaifeng" selected="selected">开封</option>
+							</select>
+						  </a>
+					  </li>
+					</ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
+                                            <span class="pull-right text-muted small">4分钟前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
+                                            <span class="pull-right text-muted small">12分钟前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a class="J_menuItem" href="notifications.html">
+                                            <strong>查看所有 </strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown hidden-xs">
+                            <a class="right-sidebar-toggle" aria-expanded="false"><i class="fa fa-tasks"></i>主题</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 			<div class="row J_mainContent" id="content-main">
 				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" frameborder="0"
-					src="testproject?str=123" data-id="index_v1.html" seamless></iframe>
+					src="testproject?str=123" data-id="index" seamless></iframe>
 			</div>
 			<div class="footer">
 				<div class="pull-right">&copy; 卫艳鸽  毕业设计</div>
 			</div>
 		</div>
 	</div>
+	
 	<script src="resources/js/jquery.min.js?v=2.1.4"></script>
 	<script src="resources/js/bootstrap.min.js?v=3.3.6"></script>
 	<script src="resources/js/content.min.js?v=1.0.0"></script>
@@ -195,11 +233,11 @@
 	<script src="resources/js/plugins/pace/pace.min.js"></script>
 	<script src="resources/js/plugins/chosen/chosen.jquery.js"></script>
 	<script src="resources/js/plugins/iCheck/icheck.min.js"></script>
-	<script src="resources/js/amcproject/add_message.js"></script>
 	<script src="resources/js/plugins/validate/jquery.validate.min.js"></script>
 	<script src="resources/js/plugins/validate/messages_zh.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$('.selecter').chosen();
 			$("#suggestion").validate({
 				rules:{
 					message:"required"
@@ -208,9 +246,55 @@
 					message:"反馈的意见不能为空！"
 				}
 			});
-		});
+		});	
+		
+		function getcitylist() {
+			$.ajax({
+				cache:true,
+				async:false,
+				type:'post',
+				url:'./cityinfo/citylist',
+				data:{
+					userid:userid
+				},
+				success:function(redata) {
+					$("#select_city").children("option").remove();
+					var addoption="";
+					$(redata[1]).each(function(i) {
+						addoption=addoption+'<option value='+this.citycode+'>'+this.cityname+'</option>';
+					});
+					$("#select_city").append(addoption);
+					$("#select_city").trigger("chosen:updated");
+				},
+				error:function(redata) {
+					console.log(redata);
+				}
+			});
+
+		}
 		function showsuggest(obj) {
 			$("#suggest").modal("show");
+		}
+		function addsuggestion(){
+			if(!$("#suggestion").valid()){
+				return ;
+			}
+			var message = $("#message").val();
+			$("#suggest").modal("hide");
+			$.ajax({
+				type : 'post',
+				url  : './suggestion/sinfo',
+				data : {
+					message:message,
+					userid:userid
+				},
+				success:function(redata) {
+					console.log(redata);
+				},
+				error:function(redata) {
+					console.log(redata);
+				}
+			});	 
 		}
 	</script>
 </body>

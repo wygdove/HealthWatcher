@@ -3245,7 +3245,7 @@ nav.page-tabs .page-tabs-content {
 }
 
 #content-main {
-	height: 95%;
+	height: 85%;
 	overflow: hidden
 }
 
@@ -6871,7 +6871,7 @@ body.skin-3 {
 		height: calc(100% - 100px)
 	}
 	.fixed-nav #content-main {
-		height: calc(100% - 38px)
+		height: calc(100% - 38px - 32px)
 	}
 }
 

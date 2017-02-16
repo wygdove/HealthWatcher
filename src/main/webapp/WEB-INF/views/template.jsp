@@ -23,13 +23,7 @@
 <body class="gray-bg">
 	<div class="wrapper wrapper-content animated fadeIn">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="tabs-container">
-					<div class="panel-body">
-						${str }
-					</div>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 

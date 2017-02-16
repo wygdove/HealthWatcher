@@ -35,5 +35,11 @@ public class TestController {
 		_log.info("controller:/testproject"+str);
 		return "test";
 	}
+	
+	@RequestMapping("test")
+	public String test(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/test");
+		return "info";
+	}
 
 }
