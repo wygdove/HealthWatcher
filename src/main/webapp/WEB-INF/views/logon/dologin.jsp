@@ -26,7 +26,7 @@
 			<div class="col-md-12">
 				<div class="tabs-container">
 					<div class="panel-body">
-						${str }
+						登录成功，跳转主页中……
 					</div>
 				</div>
 			</div>
@@ -41,5 +41,8 @@
 	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 	<script src="resources/js/plugins/validate/jquery.validate.min.js"></script>
 	<script src="resources/js/plugins/validate/messages_zh.min.js"></script>
+	<script type="text/javascript">
+		window.location.href="index";
+	</script>
 </body>
 </html>

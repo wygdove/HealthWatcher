@@ -26,7 +26,7 @@
 			<div class="col-md-12">
 				<div class="tabs-container">
 					<div class="panel-body">
-						${str }
+						<a href="logon/dologin">dologin</a>
 					</div>
 				</div>
 			</div>
