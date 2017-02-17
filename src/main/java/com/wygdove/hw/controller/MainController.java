@@ -25,7 +25,7 @@ public class MainController {
 		_log.info("controller:/index");
 		HwUser hwuser=(HwUser)request.getSession().getAttribute(AttributeConstant.HWUSER);
 		if(hwuser==null) {
-			return UriConstant.LOGIN;
+			return UriConstant.LOGON_LOGIN;
 		}
 		else {
 			map.addAttribute("hwuser",hwuser);

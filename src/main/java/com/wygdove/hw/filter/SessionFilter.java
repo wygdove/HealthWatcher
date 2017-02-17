@@ -31,7 +31,7 @@ public class SessionFilter extends OncePerRequestFilter {
 				_log.debug("SessionFilter: There is no user.");
 				request.setCharacterEncoding("UTF-8");
 				response.setCharacterEncoding("UTF-8");
-				request.getRequestDispatcher(UriConstant.LOGIN).forward(request,response);
+				request.getRequestDispatcher(UriConstant.LOGON_LOGIN).forward(request,response);
 			}
 			else {
 				_log.debug("SessionFilter: filter passed.");

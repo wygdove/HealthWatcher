@@ -9,7 +9,8 @@ public class ProjectConstant {
 	// SessionFilter不过滤的url结尾
 	public static final String[] NO_SESSION_FILTER=new String[]{
 			".css",".js",
-			"/logon/login","/logon/dologin"
+			".png",".jpg","jpeg",".gif",".svg",".ttf",".eot",".woff",".woff2",
+			"/logon/login","/logon/dologin","/logon/register","/logon/doregister"
 			};
 	
 	
