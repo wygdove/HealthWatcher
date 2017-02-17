@@ -27,7 +27,7 @@
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <h3>欢迎使用 健康卫士</h3>
-            <form class="m-t" role="form" action="logon/dologin">
+            <form class="m-t" role="form" method="post" action="logon/dologin">
                 <div class="form-group">
                     <input name="username" type="text" class="form-control" placeholder="用户名" required="">
                 </div>
