@@ -39,7 +39,7 @@
 								<span class="clear">
 									<span class="block m-t-xs">
 										<strong class="font-bold">
-											<c:out value="${nt}" default="获取异常"></c:out>
+											<c:out value="${hwuser.displayName }" default="获取异常"></c:out>
 										</strong>
 										<b class="caret"></b>
 									</span>
@@ -70,7 +70,7 @@
 									</div>
 								</li>
 								<li class="divider"></li>
-								<li><a href="loginout">安全退出</a></li>
+								<li><a href="logon/logout">安全退出</a></li>
 							</ul>
 						</div>
 					</li>
@@ -165,9 +165,12 @@
 					  <li class="dropdown hidden-xs">
 						<a class="right-sidebar-toggle" aria-expanded="false" style="padding:12px 12px 10px 12px;">
 							<select class="selecter" id="select_city" style="width:100px;">
+							  <c:if test="${!empty hwuser.cityCode }">
+							  	<option value="${hwuser.cityCode }" selected="selected">${hwuser.cityName }</option>
+							  </c:if>
 							  <option value="beijing">北京</option>
 							  <option value="tianjin">天津</option>
-							  <option value="kaifeng" selected="selected">开封</option>
+							  <option value="kaifeng">开封</option>
 							</select>
 						  </a>
 					  </li>

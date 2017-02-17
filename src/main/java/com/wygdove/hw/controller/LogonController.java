@@ -38,6 +38,13 @@ public class LogonController {
 		_log.info("controller:/logon/register");
 		return UriConstant.LOGON_REGISTER;
 	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/logon/logout");
+		request.getSession().setAttribute(AttributeConstant.HWUSER,null);
+		return UriConstant.LOGON_LOGIN;
+	}
 
 	@RequestMapping("dologin")
 	public String dologin(HttpServletRequest request,HttpServletResponse response,ModelMap map) {

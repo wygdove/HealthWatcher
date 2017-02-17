@@ -15,6 +15,10 @@ public class HwUser {
 
     private String status;
 
+    private String cityCode;
+
+    private String cityName;
+
     private Date createdAt;
 
     private Date updatedAt;
@@ -65,6 +69,22 @@ public class HwUser {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public Date getCreatedAt() {
