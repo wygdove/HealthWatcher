@@ -123,17 +123,21 @@
 							<span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="environment/weather">
 								<i class=" fa fa-cube"></i>
-								<span class="nav-label">环境数据一</span>
+								<span class="nav-label">天气变化</span>
 							</a></li>
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="environment/cityair">
 								<i class=" fa fa-cube"></i>
-								<span class="nav-label">环境数据二</span>
+								<span class="nav-label">空气质量</span>
 							</a></li>
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="environment/pollution">
 								<i class=" fa fa-cube"></i>
-								<span class="nav-label">环境数据三</span>
+								<span class="nav-label">环境污染</span>
+							</a></li>
+							<li><a class="J_menuItem" href="environment/disaster">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">自然灾害</span>
 							</a></li>
 						</ul>
 					</li>
@@ -161,6 +165,18 @@
 		<div id="page-wrapper" class="gray-bg dashbard-1">
 			<div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+					<ul class="nav navbar-top-links navbar-left">
+						<li class="dropdown hidden-xs">
+							<a class="right-sidebar-toggle" aria-expanded="false" style="padding: 22px 15px 10px 20px;">
+								<span id="hwusercityname" data-id="${hwuser.cityCode }">${hwuser.cityName }</span>
+							</a>
+						</li>
+						<li class="dropdown hidden-xs">
+							<a class="right-sidebar-toggle" aria-expanded="false" style="padding: 22px 12px 10px 12px;"> 
+								<span id="nowtime">2017/02/17 11:31</span> 
+							</a>
+						</li>
+					</ul>
 					<ul class="nav navbar-top-links navbar-left">
 					  <li class="dropdown hidden-xs">
 						<a class="right-sidebar-toggle" aria-expanded="false" style="padding:12px 12px 10px 12px;">

@@ -12,5 +12,17 @@ public class UriConstant {
 	public static final String LOGON_DOREGISTER="logon/doregister";
 	public static final String LOGON_FORGETPASSWORD="logon/forgetpassword";
 	
+//	public static final String PHYSICAL_="";
+
+//	public static final String INDOOR_="";
+	
+	public static final String ENVIRONMENT_WEATHER="environment/weather";
+	public static final String ENVIRONMENT_CITYAIR="environment/cityair";
+	public static final String ENVIRONMENT_POLLUTION="environment/pollution";
+	public static final String ENVIRONMENT_DISASTER="environment/disaster";
+
+//	public static final String SETTING_="";
+
+//	public static final String _="";
 	
 }
