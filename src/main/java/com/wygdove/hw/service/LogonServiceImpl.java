@@ -53,6 +53,8 @@ public class LogonServiceImpl implements ILogonService {
 		hwuser.setUpdatedAt(DateUtil.getNowDate());
 		hwuser.setStatus("enable");
 		hwuser.setAccountType("user");
+		hwuser.setCityCode("101010100");
+		hwuser.setCityName("北京");
 		return (hwUserMapper.insert(hwuser))>0?"success":"";
 	}
 
