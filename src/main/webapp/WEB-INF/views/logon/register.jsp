@@ -29,7 +29,7 @@
         <div>
             <h3>欢迎注册 健康卫士</h3>
             <p>创建一个新账户</p>
-            <form class="m-t" role="form" action="logon/doregister">
+            <form class="m-t" role="form" method="post" action="logon/doregister">
                 <div class="form-group">
                     <input name="username" type="text" class="form-control" placeholder="请输入用户名" required="">
                 </div>
