@@ -226,7 +226,7 @@
                             </ul>
                         </li>
                         <li class="dropdown hidden-xs">
-                            <a class="right-sidebar-toggle" aria-expanded="false"><i class="fa fa-tasks"></i>主题</a>
+                            <a class="right-sidebar-toggle" aria-expanded="false"><i class="fa fa-gear fa-spin"></i>设置</a>
                         </li>
                     </ul>
                 </nav>
