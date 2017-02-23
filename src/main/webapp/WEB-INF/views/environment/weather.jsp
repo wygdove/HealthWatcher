@@ -11,6 +11,8 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8">
+<!-- refresh this page every hour -->
+<meta http-equiv="refresh" content="3600">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>健康卫士</title>
 <link href="resources/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -30,66 +32,89 @@
                             <span><big><big>实时天气</big></big></span>
                         </div>
                         <div class="col-xs-8 text-right">
-                            <span><small><small>发布时间：13:05</small></small></span>
+                            <span><small><small>发布时间：
+                            	<c:out value="${weatherlivevo.wlUpdateTime }" default="暂无数据"></c:out>
+                            </small></small></span>
                         </div>
                     </div>
                     <div>
 						<div class="p-m">
-							<div class="col-sm-4">气温(℃)：5.0</div>
-							<div class="col-sm-4">气压(hPa)：1027.0</div>
-							<div class="col-sm-4">相对湿度(%)：10.0</div>
+							<div class="col-sm-4">当前：
+								<c:out value="${weatherlivevo.wlPhenomena }" default="暂无数据"></c:out>
+							</div>
+							<div class="col-sm-4">体感温度：
+								<c:out value="${weatherlivevo.wlFeelst }" default="暂无数据"></c:out>
+							</div>
+							<div class="col-sm-4"></div>
 						</div>
 						<div class="p-m">
-							<div class="col-sm-4">风向：西南风</div>
-							<div class="col-sm-4">风力：微风</div>
-							<div class="col-sm-4">降雨量(mm)：0.0</div>
+							<div class="col-sm-4">气温(℃)：
+								<c:out value="${weatherlivevo.wlTemperature }" default="暂无数据"></c:out>
+							</div>
+							<div class="col-sm-4">气压(hPa)：
+								<c:out value="${weatherlivevo.wlAirPressure }" default="暂无数据"></c:out>
+							</div>
+							<div class="col-sm-4">相对湿度(%)：
+								<c:out value="${weatherlivevo.wlHumidity }" default="暂无数据"></c:out>
+							</div>
+						</div>
+						<div class="p-m">
+							<div class="col-sm-4">风向：
+								<c:out value="${weatherlivevo.wlWindDirect}" default="暂无数据"></c:out>
+							</div>
+							<div class="col-sm-4">风力：
+								<c:out value="${weatherlivevo.wlWindPower}" default="暂无数据"></c:out>
+							</div>
+							<div class="col-sm-4">降雨量(mm)：
+								<c:out value="${weatherlivevo.wlRain}" default="暂无数据"></c:out>
+							</div>
 						</div>
                     </div>
                 </div>
                 <div class="widget white-bg no-padding">
                     <div class="p-m">
-                        <span><big><big>未来一周气温变化</big></big></span>
+                        <span><big><big>未来一周天气变化</big></big></span>
                     </div>
 					<div class="row">
-						<table class="table text-center" frame=void>
+						<table class="table text-center" frame="void">
 							<tr>
-								<td>周五<br/>02/17</td>
-								<td>周六<br/>02/18</td>
-								<td>周日<br/>02/19</td>
-								<td>周一<br/>02/20</td>
-								<td>周二<br/>02/21</td>
-								<td>周三<br/>02/22</td>
-								<td>周四<br/>02/23</td>
+								<c:forEach items="${weatherforecastvos }" var="wflist">
+					    			<td>
+					    				<c:out value="${wflist.wfDayWeek }" default="暂无数据"></c:out>
+					    				<br />
+					    				<c:out value="${wflist.wfDay }" default="暂无数据"></c:out>
+				    				</td>
+					    		</c:forEach>
 							</tr>
 							<tr>
-								<td><img src="resources/img/weather/qing.png" /><br/>多云</td>
-								<td><img src="resources/img/weather/duoyun.png" /><br/>晴</td>
-								<td><img src="resources/img/weather/duoyun.png" /><br/>多云</td>
-								<td><img src="resources/img/weather/yin.png" /><br/>阴</td>
-								<td><img src="resources/img/weather/qing.png" /><br/>晴</td>
-								<td><img src="resources/img/weather/yin.png" /><br/>阴</td>
-								<td><img src="resources/img/weather/qing.png" /><br/>晴</td>
+								<c:forEach items="${weatherforecastvos }" var="wflist">
+					    			<td>
+					    				<img src='resources/img/weather/<c:out value="${wflist.wfCondDImg }" default="default.png"></c:out>' />
+					    				<br />
+					    				<c:out value="${wflist.wfCondD }" default="暂无数据"></c:out>
+				    				</td>
+					    		</c:forEach>
 							</tr>
 							<tr>
 								<td colspan=7><div class="echarts" id="chart_weatherforecast"></div></td>
 							</tr>
 							<tr>
-								<td><img src="resources/img/weather/qing_night.png" /><br/>晴</td>
-								<td><img src="resources/img/weather/qing_night.png" /><br/>晴</td>
-								<td><img src="resources/img/weather/yin.png" /><br/>阴</td>
-								<td><img src="resources/img/weather/qing.png" /><br/>晴</td>
-								<td><img src="resources/img/weather/duoyun_night.png" /><br/>多云</td>
-								<td><img src="resources/img/weather/yin.png" /><br/>阴</td>
-								<td><img src="resources/img/weather/qing.png" /><br/>晴</td>
+								<c:forEach items="${weatherforecastvos }" var="wflist">
+					    			<td>
+					    				<img src='resources/img/weather/<c:out value="${wflist.wfCondNImg }" default="default.png"></c:out>' />
+					    				<br />
+					    				<c:out value="${wflist.wfCondN }" default="暂无数据"></c:out>
+				    				</td>
+					    		</c:forEach>
 							</tr>
 							<tr>
-								<td>北风<br/>4~5级</td>
-								<td>南风<br/>微风</td>
-								<td>南风<br/>微风</td>
-								<td>西北风<br/>4~5级</td>
-								<td>北风<br/>3~4级</td>
-								<td>南风<br/>微风</td>
-								<td>南风<br/>微风</td>
+								<c:forEach items="${weatherforecastvos }" var="wflist">
+					    			<td>
+					    				<c:out value="${wflist.wfWindDir }" default="暂无数据"></c:out>
+					    				<br />
+					    				<c:out value="${wflist.wfWindPower }" default="暂无数据"></c:out>
+				    				</td>
+					    		</c:forEach>
 							</tr>
 						</table>
 					</div>
@@ -103,36 +128,36 @@
 							<span><big><big>生活指数</big></big></span>
 						</div>
                         <div class="p-m">
-							舒适度指数：较舒适<br />
-							白天虽然天气晴好，但早晚会感觉偏凉，午后舒适、宜人。
+							舒适度指数：<c:out value="${weatherforecastlifevo.wflComfBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflComfTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							穿衣指数：较冷<br />
-							建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。
+							穿衣指数：<c:out value="${weatherforecastlifevo.wflDrsBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflDrsTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							感冒指数：较易发<br />
-							昼夜温差较大，较易发生感冒，请适当增减衣服。体质较弱的朋友请注意防护。
+							感冒指数：<c:out value="${weatherforecastlifevo.wflFluBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflFluTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							空气质量指数：很差<br />
-							气象条件不利于空气污染物稀释、扩散和清除，请尽量避免在室外长时间活动。
+							空气质量指数：<c:out value="${weatherforecastlifevo.wflAirBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflAirTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							紫外线指数：中等<br />
-							属中等强度紫外线辐射天气，外出时建议涂擦SPF高于15、PA+的防晒护肤品，戴帽子、太阳镜。
+							紫外线指数：<c:out value="${weatherforecastlifevo.wflUvBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflUvTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							运动指数：较适宜<br />
-							天气较好，但考虑气温较低，推荐您进行室内运动，若户外适当增减衣物并注意防晒。
+							运动指数：<c:out value="${weatherforecastlifevo.wflSportBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflSportTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							旅游指数：适宜<br />
-							天气较好，气温稍低，会感觉稍微有点凉，不过也是个好天气哦。适宜旅游，可不要错过机会呦！
+							旅游指数：<c:out value="${weatherforecastlifevo.wflTravBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflTravTxt }" default="暂无数据"></c:out>
 						</div>
                         <div class="p-m">
-							洗车指数：较适宜<br />
-							较适宜洗车，未来一天无雨，风力较小，擦洗一新的汽车至少能保持一天。
+							洗车指数：<c:out value="${weatherforecastlifevo.wflCwBrf }" default="暂无数据"></c:out><br />
+							<c:out value="${weatherforecastlifevo.wflCwTxt }" default="暂无数据"></c:out>
 						</div>
                     </div>
                 </div>

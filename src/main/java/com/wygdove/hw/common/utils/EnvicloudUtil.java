@@ -1,5 +1,6 @@
 package com.wygdove.hw.common.utils;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -23,16 +24,27 @@ public class EnvicloudUtil {
 		return EnvicloudConstant.BASE_URL+apiurl;
 	}
 	
-	private static String getHttpData(String url) throws UnirestException {
+	private static String getHttpData(String url) throws UnirestException, IOException {
 		_log.debug("EnvicloudUtil: "+url);
 		String json=Unirest.get(url).asJson().getBody().toString();
 		_log.debug("EnvicloudUtil: "+json);
 		return json;
 	}
 	
-	public static String getCitycode(String cityname) throws UnirestException {
+	public static String getCitycode(String cityname) throws UnirestException, IOException {
 		HashMap<String,String> map=new HashMap<String,String>();
 		map.put(EnvicloudConstant.PARAM_CITYNAME,cityname);
 		return getHttpData(getUrl(EnvicloudConstant.URL_CITY_CODEBYNAME,map));
+	}
+	
+	public static String getWeatherLive(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		return getHttpData(getUrl(EnvicloudConstant.URL_WEATHER_LIVE,map));
+	}
+	public static String getWeatherForecast(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		return getHttpData(getUrl(EnvicloudConstant.URL_WEATHER_FORECAST,map));
 	}
 }

@@ -1,16 +1,26 @@
 package com.wygdove.hw.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.aspectj.apache.bcel.classfile.AttributeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wygdove.hw.common.constant.AttributeConstant;
 import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
+import com.wygdove.hw.service.environment.IWeatherService;
+import com.wygdove.hw.vo.WeatherForecastLifeVo;
+import com.wygdove.hw.vo.WeatherForecastVo;
+import com.wygdove.hw.vo.WeatherLiveVo;
 
 /**
  * @author wygdove
@@ -21,14 +31,21 @@ import com.wygdove.hw.mybatis.model.HwUser;
 public class EnvironmentController {
 	private static final Logger _log=Logger.getLogger(EnvironmentController.class);
 	
+	@Resource
+	private IWeatherService weatherService;
+	
 	@RequestMapping("weather")
 	public String weather(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
 		_log.info("controller:/environment/weather");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
-		
-		
+		WeatherLiveVo weatherLiveVo=weatherService.getwl(hwuser.getCityCode());
+		ArrayList<WeatherForecastVo> weatherForecastVoList=weatherService.getwfs(hwuser.getCityCode());
+		WeatherForecastLifeVo weatherForecastLifeVo=weatherService.getwfl(hwuser.getCityCode());
+		map.addAttribute(AttributeConstant.WEATHERLIVEVO,weatherLiveVo);
+		map.addAttribute(AttributeConstant.WEATHERFORECASTVOS,weatherForecastVoList);
+		map.addAttribute(AttributeConstant.WEATHERFORECASTLIFEVO,weatherForecastLifeVo);
 		return UriConstant.ENVIRONMENT_WEATHER;
 	}
 
