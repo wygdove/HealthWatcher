@@ -11,6 +11,10 @@ public class AttributeConstant {
 	public static final String WEATHERFORECASTVOS="weatherforecastvos";
 	public static final String WEATHERFORECASTLIFEVO="weatherforecastlifevo";
 	
+	public static final String DISASTERVO="disastervo";
+	public static final String EARTHQUAKESVOS="earthquakevos";
+	
+	
 	
 	// 后台返回前台信息
 	public static final String RES_MESSAGE="resmessage";

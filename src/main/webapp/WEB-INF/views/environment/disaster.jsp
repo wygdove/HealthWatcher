@@ -88,22 +88,19 @@
 								<th>震源深度</th>
 								<th>距离</th>
 							</tr>
-							<tr>
-								<td>2017-02-19 17:19:30</td>
-								<td>[140.806,35.6325]</td>
-								<td>11km SSW of Hasaki, Japan</td>
-								<td>5.5</td>
-								<td>39.43</td>
-								<td>831.596km</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							<c:forEach items="${earthquakevos }" var="eqlist">
+								<tr>
+					    			<td><c:out value="${eqlist.eqTime }" default="暂无数据"></c:out></td>
+					    			<td>
+					    				[<c:out value="${eqlist.eqLatitude }" default="暂无数据"></c:out>,
+					    				<c:out value="${eqlist.eqLongitude }" default="暂无数据"></c:out>]
+					    			</td>
+					    			<td><c:out value="${eqlist.eqPlace }" default="暂无数据"></c:out></td>
+					    			<td><c:out value="${eqlist.eqMag }" default="暂无数据"></c:out></td>
+					    			<td><c:out value="${eqlist.eqDepth }" default="暂无数据"></c:out></td>
+					    			<td><c:out value="${eqlist.eqDistance }" default="暂无数据"></c:out></td>
+					    		</tr>
+				    		</c:forEach>
 						</table>
 					</div>
 				</div>

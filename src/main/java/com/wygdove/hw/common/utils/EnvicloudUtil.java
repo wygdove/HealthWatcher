@@ -32,10 +32,9 @@ public class EnvicloudUtil {
 		return EnviBaseUtil.getData(EnvicloudConstant.URL_WEATHER_FORECAST,map);
 	}
 	
-	public static String getAlert(String citycode) throws UnirestException, IOException {
+	public static String getAlert(String cityname) throws UnirestException, IOException {
 		HashMap<String,String> map=new HashMap<String,String>();
-		String filter="";
-		map.put(EnvicloudConstant.PARAM_FILTER,filter);
+		map.put(EnvicloudConstant.PARAM_FILTER,cityname);
 		return EnviBaseUtil.getData(EnvicloudConstant.URL_ALERT,map);
 	}
 	
