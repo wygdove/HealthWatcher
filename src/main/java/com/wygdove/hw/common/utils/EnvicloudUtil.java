@@ -15,6 +15,12 @@ import com.wygdove.hw.common.constant.EnvicloudConstant;
  */
 public class EnvicloudUtil {
 	
+	public static String getTest(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITY_ALLCODE,map);
+	}
+	
 	public static String getCitycode(String cityname) throws UnirestException, IOException {
 		HashMap<String,String> map=new HashMap<String,String>();
 		map.put(EnvicloudConstant.PARAM_CITYNAME,cityname);
@@ -44,4 +50,25 @@ public class EnvicloudUtil {
 		map.put(EnvicloudConstant.PARAM_COUNT,num);
 		return EnviBaseUtil.getData(EnvicloudConstant.URL_EARTHQUAKE_CITY,map);
 	}
+
+	public static String getCityairLive(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITYAIR_LIVE,map);
+	}
+	public static String getCityairLiveAQI(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		map.put(EnvicloudConstant.PARAM_TYPE,"AQI");
+		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITYAIR_LIVE_TYPE,map);
+	}
+	public static String getCityairHistory(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITYAIR_HISTORY,map);
+	}
+	
+	
+	
+	
 }

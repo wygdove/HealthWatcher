@@ -1,6 +1,5 @@
 package com.wygdove.hw.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -12,15 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.wygdove.hw.common.constant.AttributeConstant;
 import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
+import com.wygdove.hw.service.environment.ICityairService;
 import com.wygdove.hw.service.environment.IDisasterService;
 import com.wygdove.hw.service.environment.IWeatherService;
-import com.wygdove.hw.vo.DisasterVo;
-import com.wygdove.hw.vo.EarthquakeVo;
 import com.wygdove.hw.vo.WeatherForecastLifeVo;
 import com.wygdove.hw.vo.WeatherForecastVo;
 import com.wygdove.hw.vo.WeatherLiveVo;
@@ -38,6 +35,8 @@ public class EnvironmentController {
 	private IWeatherService weatherService;
 	@Resource
 	private IDisasterService disasterService;
+	@Resource
+	private ICityairService cityairService;
 	
 	@RequestMapping("weather")
 	public String weather(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
@@ -60,8 +59,10 @@ public class EnvironmentController {
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
-		
-		
+		map.addAttribute(AttributeConstant.CITYAIRLIVEVO,
+				cityairService.getcl(hwuser.getCityCode()));
+		map.addAttribute(AttributeConstant.CITYAIRHISTORYVOS,
+				cityairService.getchs(hwuser.getCityCode()));
 		return UriConstant.ENVIRONMENT_CITYAIR;
 	}
 

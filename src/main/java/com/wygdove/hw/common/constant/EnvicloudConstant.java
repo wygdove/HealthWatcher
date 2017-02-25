@@ -87,7 +87,8 @@ public class EnvicloudConstant {
 	 * 空气质量查询
 	 */
 	// 查询指定城市的空气质量实况
-	public static final String URL_CITYAIR_LIVE="/v2/cityairlive/{accesskey}/{citycode}/{type}";
+	public static final String URL_CITYAIR_LIVE="/v2/cityairlive/{accesskey}/{citycode}";
+	public static final String URL_CITYAIR_LIVE_TYPE="/v2/cityairlive/{accesskey}/{citycode}/{type}";
 	// 查询指定城市过去24小时的空气质量
 	public static final String URL_CITYAIR_HISTORY="/v2/cityairhistory/{accesskey}/{citycode}";
 	// 查询指定城市指定日期的空气质量

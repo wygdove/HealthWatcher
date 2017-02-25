@@ -29,17 +29,35 @@
 							<span><big><big>空气实况</big></big></span>
 						</div>
 						<div class="col-xs-8 text-right">
-							<span><small><small>发布时间：13:05</small></small></span>
+							<span><small><small>发布时间：
+								<c:out value="${cityairlivevo.calTime }" default="暂无数据"></c:out>
+							</small></small></span>
 						</div>
 					</div>
-					<div class="p-m">空气质量指数: 21</div>
-					<div class="p-m">首要污染物: 细颗粒物(PM2.5)</div>
-					<div class="p-m">PM2.5浓度：9 (μg/m<sup>3</sup>)</div>
-					<div class="p-m">PM10浓度: 13 (μg/m<sup>3</sup>)</div>
-					<div class="p-m">臭氧浓度: 55.17 (μg/m<sup>3</sup>)</div>
-					<div class="p-m">一氧化碳浓度：0.38 (mg/m<sup>3</sup>)</div>
-					<div class="p-m">二氧化硫浓度: 3.75 (μg/m<sup>3</sup>)</div>
-					<div class="p-m">二氧化氮浓度: 15.75 (μg/m<sup>3</sup>)</div>
+					<div class="p-m">空气质量指数: 
+						<c:out value="${cityairlivevo.calAqi }" default="暂无数据"></c:out>
+					</div>
+					<div class="p-m">首要污染物: 
+						<c:out value="${cityairlivevo.calPrimary }" default="暂无数据"></c:out>
+					</div>
+					<div class="p-m">PM2.5浓度：
+						<c:out value="${cityairlivevo.calPm25 }" default="暂无数据"></c:out>
+					 μg/m<sup>3</sup></div>
+					<div class="p-m">PM10浓度: 
+						<c:out value="${cityairlivevo.calPm10 }" default="暂无数据"></c:out>
+					 μg/m<sup>3</sup></div>
+					<div class="p-m">臭氧浓度: 
+						<c:out value="${cityairlivevo.calO3 }" default="暂无数据"></c:out>
+					 μg/m<sup>3</sup></div>
+					<div class="p-m">一氧化碳浓度：
+						<c:out value="${cityairlivevo.calCo }" default="暂无数据"></c:out>
+					 mg/m<sup>3</sup></div>
+					<div class="p-m">二氧化硫浓度: 
+						<c:out value="${cityairlivevo.calSo2 }" default="暂无数据"></c:out>
+					 μg/m<sup>3</sup></div>
+					<div class="p-m">二氧化氮浓度: 
+						<c:out value="${cityairlivevo.calNo2 }" default="暂无数据"></c:out>
+					 μg/m<sup>3</sup></div>
 				</div>
 			</div>
 			<div class="col-sm-8">
@@ -60,48 +78,15 @@
 							<th>最小</th>
 							<th>趋势</th>
 						</tr>
-						<tr>
-							<td>PM2.5</td>
-							<td>198</td>
-							<td>242</td>
-							<td>198</td>
-							<td><img src="http://www.envicloud.cn/showAirImage/beijing_pm25/jpg" /></td>
-						</tr>
-						<tr>
-							<td>PM10</td>
-							<td>0</td>
-							<td>110</td>
-							<td>0</td>
-							<td><img src="http://www.envicloud.cn/showAirImage/beijing_pm10/jpg" /></td>
-						</tr>
-						<tr>
-							<td>O<sub>3</sub></td>
-							<td>53</td>
-							<td>53</td>
-							<td>4</td>
-							<td><img src="http://www.envicloud.cn/showAirImage/beijing_o3/jpg" /></td>
-						</tr>
-						<tr>
-							<td>NO<sub>2</sub></td>
-							<td>81</td>
-							<td>118</td>
-							<td>81</td>
-							<td><img src="http://www.envicloud.cn/showAirImage/beijing_no2/jpg" /></td>
-						</tr>
-						<tr>
-							<td>SO<sub>2</sub></td>
-							<td>48</td>
-							<td>48</td>
-							<td>19</td>
-							<td><img src="http://www.envicloud.cn/showAirImage/beijing_so2/jpg" /></td>
-						</tr>
-						<tr>
-							<td>CO</td>
-							<td>2.40</td>
-							<td>3.69</td>
-							<td>2.40</td>
-							<td><img src="http://www.envicloud.cn/showAirImage/beijing_co/jpg" /></td>
-						</tr>
+						<c:forEach items="${cityairhistoryvos }" var="chlist">
+							<tr>
+				    			<td><c:out value="${chlist.cahItemName }" default="暂无数据"></c:out></td>
+				    			<td><c:out value="${chlist.cahItemNow }" default="暂无数据"></c:out></td>
+				    			<td><c:out value="${chlist.cahItemMax }" default="暂无数据"></c:out></td>
+				    			<td><c:out value="${chlist.cahItemMin }" default="暂无数据"></c:out></td>
+								<td><img src="http://www.envicloud.cn/showAirImage/beijing_pm25/jpg" /></td>
+							</tr>
+			    		</c:forEach>
 					</table>
 				</div>
 			</div>
