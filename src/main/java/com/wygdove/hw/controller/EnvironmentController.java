@@ -1,6 +1,7 @@
 package com.wygdove.hw.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wygdove.hw.common.constant.AttributeConstant;
 import com.wygdove.hw.common.constant.UriConstant;
@@ -90,4 +92,12 @@ public class EnvironmentController {
 		return UriConstant.ENVIRONMENT_DISASTER;
 	}
 
+	@RequestMapping("weather/wfchart")
+	@ResponseBody
+	public List<WeatherForecastVo> wfchart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/environment/weather/wfchart");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		return weatherService.getwfs(hwuser.getCityCode());
+	}
 }

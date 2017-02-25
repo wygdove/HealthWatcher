@@ -179,67 +179,52 @@
 	<script src="resources/js/plugins/echarts/echarts.min.js"></script>
 <script>
 $(document).ready(function() {
-	var wfchart=echarts.init(document.getElementById("chart_weatherforecast"));
-	option = {
-		tooltip: {trigger: 'axis'},
-		grid: {
-			left: '6%',
-			right: '6%'
-		},
-		xAxis:  {
-			show: false,
-			type: 'category',
-			boundaryGap: false,
-			data: ['周五','周六','周日','周一','周二','周三','周四']
-		},
-		yAxis: {
-			show: false,
-			type: 'value',
-		},
-		series: [
-			{
-				name:'最高气温',
-				type:'line',
-				itemStyle:{
-					normal:{
-						label:{
-							show: true,
-							formatter:'{c} °C'
-						},
-						color:'#EE9A00'
-					}
-				},
-				data:[6, 7, 12, 8, 3, 4, 8]
-			},
-			{
-				name:'最低气温',
-				type:'line',
-				itemStyle:{
-					normal:{
-						label:{
-							show: true,
-							position: 'bottom',
-							formatter:'{c} °C'
-						},
-						color:'#00BFFF'
-					}
-				},
-				data:[-4, -2, 1, -2, -3, -3, -3]
-			}
-		]
-	};
-	wfchart.setOption(option);
+	dowfchart();
 });
-function formatDate(timestamp) { 
-	var date=new Date(parseInt(timestamp));
-	var year=date.getFullYear();
-	var month=date.getMonth()+1; 
-	var day=date.getDate(); 
-	var hour=date.getHours(); 
-	var minute=date.getMinutes(); 
-	var second=date.getSeconds(); 
-	return year+"/"+month+"/"+day+" "+hour+":"+minute+":"+second; 
-} 
+
+function dowfchart() {
+	$.ajax({
+		cache: true,
+		async: false,
+		type: 'get',
+		url: './environment/weather/wfchart',
+		success:function(redata) {
+			var dw=[];
+			var da=[];
+			var di=[];
+			$(redata).each(function(i) {
+				dw.push(this.wfDayWeek);
+				da.push(this.wfTmpMax);
+				di.push(this.wfTmpMin);
+			});
+			setchartdata(dw,da,di);
+		},
+		error:function(redata) {
+			console.log(redata);
+		}
+	});
+}
+
+function setchartdata(dataxaxis,dataseriesmax,dataseriesmin) {
+	var wfchart=echarts.init(document.getElementById("chart_weatherforecast"));
+	wfchart.setOption({
+		grid:{left:'6%',right:'6%'},
+		xAxis:{show:false,type:'category',boundaryGap:false,data:dataxaxis},
+		yAxis: {show: false,type: 'value',},
+		series: [{
+			name:'最高气温',
+			type:'line',
+			itemStyle:{normal:{label:{show: true,formatter:'{c} °C'},color:'#EE9A00'}},
+			data:dataseriesmax
+		},{
+			name:'最低气温',
+			type:'line',
+			itemStyle:{normal:{label:{show: true,position: 'bottom',formatter:'{c} °C'},color:'#00BFFF'}},
+			data:dataseriesmin
+		}]
+	});
+}
+
 </script>
 </body>
 </html>
