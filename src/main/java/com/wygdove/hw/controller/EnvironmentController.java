@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wygdove.hw.common.constant.AttributeConstant;
 import com.wygdove.hw.common.constant.UriConstant;
-import com.wygdove.hw.common.utils.EnvicloudUtil;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 import com.wygdove.hw.service.environment.ICityairService;
 import com.wygdove.hw.service.environment.IDisasterService;
 import com.wygdove.hw.service.environment.IWeatherService;
+import com.wygdove.hw.vo.CityairAQIVo;
 import com.wygdove.hw.vo.CityairHistoryTrendVo;
-import com.wygdove.hw.vo.CityairHistoryVo;
 import com.wygdove.hw.vo.WeatherForecastLifeVo;
 import com.wygdove.hw.vo.WeatherForecastVo;
 import com.wygdove.hw.vo.WeatherLiveVo;
@@ -112,5 +111,14 @@ public class EnvironmentController {
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return null;
 		return cityairService.getchts(hwuser.getCityCode());
+	}
+	
+	@RequestMapping("chart/allcityair")
+	@ResponseBody
+	public List<CityairAQIVo> allcachart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/environment/chart/allcityair");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		return cityairService.getallca();
 	}
 }

@@ -27,6 +27,17 @@ public class EnvicloudUtil {
 		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITY_CODEBYNAME,map);
 	}
 	
+	public static String getAllCitycode() throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITY_ALLCODE,map);
+	}
+	
+	public static String getCityLocation(String citycode) throws UnirestException, IOException {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);
+		return EnviBaseUtil.getData(EnvicloudConstant.URL_CITY_LOCATION,map);
+	}
+	
 	public static String getWeatherLive(String citycode) throws UnirestException, IOException {
 		HashMap<String,String> map=new HashMap<String,String>();
 		map.put(EnvicloudConstant.PARAM_CITYCODE,citycode);

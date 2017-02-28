@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.wygdove.hw.common.constant.ProjectConstant;
 import com.wygdove.hw.common.utils.EnvicloudUtil;
+import com.wygdove.hw.vo.CityairAQIVo;
 import com.wygdove.hw.vo.CityairHistoryTrendVo;
 import com.wygdove.hw.vo.CityairHistoryVo;
 import com.wygdove.hw.vo.CityairLiveVo;
@@ -128,5 +130,68 @@ public class CityairServiceImpl implements ICityairService {
 		}
 		return reslist;
 	}
+	
+//	@Override
+//	public ArrayList<CityairAQIVo> getallca() {
+//		ArrayList<CityairAQIVo> reslist=new ArrayList<CityairAQIVo>();
+//		try{
+//			JSONObject jallcode=new JsonNode(EnvicloudUtil.getAllCitycode()).getObject();
+//			if(jallcode.getInt("rcode")==200&&jallcode.getString("rdesc").equals("Success")) {
+//				JSONArray citycodes=jallcode.getJSONArray("info");
+//				for(int i=0;i<citycodes.length();i++) {
+//					CityairAQIVo cv=new CityairAQIVo();
+//					JSONObject cityinfo=citycodes.getJSONObject(i);
+//					cv.setCitycode(cityinfo.getString("citycode"));
+//					cv.setCityname(cityinfo.getString("cityname"));
+//					JSONObject jcimore=new JsonNode(EnvicloudUtil.getCityLocation(cityinfo.getString("citycode"))).getObject();
+//					if(jcimore.getInt("rcode")==200&&jcimore.getString("rdesc").equals("Success")) {
+//						JSONObject cimore=jcimore.getJSONObject("info");
+//						cv.setLongtitude(cimore.getString("longitude"));
+//						cv.setLatitude(cimore.getString("latitude"));
+//						JSONObject jcaqi=new JsonNode(EnvicloudUtil.getCityairLiveAQI(cityinfo.getString("citycode"))).getObject();
+//						if(jcaqi.getInt("rcode")==200&&jcaqi.getString("rdesc").equals("Success")) {
+//							cv.setCityaqi(Integer.parseInt(jcaqi.getString("AQI")));
+//							reslist.add(cv);
+//							_log.info("cityairaqi:"+cv.getCitycode()+" "+cv.getCityname()+" ["
+//									+cv.getLongtitude()+","+cv.getLatitude()+"] "+cv.getCityaqi());
+//						}
+//					}
+//					if(i>50)break;
+//				}
+//			}
+//		} catch (UnirestException | IOException e) {
+//			_log.error(e.getMessage());
+//		}
+//		return reslist;
+//	}
 
+	@Override
+	public ArrayList<CityairAQIVo> getallca() {
+		ArrayList<CityairAQIVo> reslist=new ArrayList<CityairAQIVo>();
+		try{
+			// 省会城市代码
+			String[] citycodes=new String[]{"101220101","101010100","101040100","101230101","101160101","101280101","101300101","101260101","101310101","101090101","101050101","101180101","101320101","101200101","101250101","101190101","101240101","101060101","101070101","101330101","101080101","101170101","101150101","101110101","101120101","101020100","101100101","101270101","101340101","101030100","101130101","101140101","101290101","101210101"};
+			for(int i=0;i<citycodes.length;i++) {
+				CityairAQIVo cv=new CityairAQIVo();
+				cv.setCitycode(citycodes[i]);
+				JSONObject jcimore=new JsonNode(EnvicloudUtil.getCityLocation(citycodes[i])).getObject();
+				if(jcimore.getInt("rcode")==200&&jcimore.getString("rdesc").equals("Success")) {
+					JSONObject cimore=jcimore.getJSONObject("info");
+					cv.setCityname(cimore.getString("cityname_cn"));
+					cv.setLongtitude(cimore.getString("longitude"));
+					cv.setLatitude(cimore.getString("latitude"));
+					JSONObject jcaqi=new JsonNode(EnvicloudUtil.getCityairLiveAQI(citycodes[i])).getObject();
+					if(jcaqi.getInt("rcode")==200&&jcaqi.getString("rdesc").equals("Success")) {
+						cv.setCityaqi(Integer.parseInt(jcaqi.getString("AQI")));
+						reslist.add(cv);
+						_log.info("cityairaqi:"+cv.getCitycode()+" "+cv.getCityname()+" ["
+								+cv.getLongtitude()+","+cv.getLatitude()+"] "+cv.getCityaqi());
+					}
+				}
+			}
+		} catch (UnirestException | IOException e) {
+			_log.error(e.getMessage());
+		}
+		return reslist;
+	}
 }
