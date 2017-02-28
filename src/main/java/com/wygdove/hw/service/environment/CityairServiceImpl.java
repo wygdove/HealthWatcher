@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.wygdove.hw.common.utils.EnvicloudUtil;
+import com.wygdove.hw.vo.CityairHistoryTrendVo;
 import com.wygdove.hw.vo.CityairHistoryVo;
 import com.wygdove.hw.vo.CityairLiveVo;
 
@@ -86,6 +87,37 @@ public class CityairServiceImpl implements ICityairService {
 					chv.setCahItemMax(samp.get(item).toString());
 					chv.setCahItemMin(simp.get(item).toString());
 					reslist.add(chv);
+				}
+			}
+			else {
+				_log.error(""+json.getInt("rcode")+"\t"+json.getString("rdesc"));
+			}
+		} catch (UnirestException | IOException e) {
+			_log.error(e.getMessage());
+		}
+		return reslist;
+	}
+
+	@Override
+	public ArrayList<CityairHistoryTrendVo> getchts(String citycode) {
+		ArrayList<CityairHistoryTrendVo> reslist=null;
+		try{
+			JSONObject json=new JsonNode(EnvicloudUtil.getCityairHistory(citycode)).getObject();
+			if(json.getInt("rcode")==200&&json.getString("rdesc").equals("Success")) {
+				reslist=new ArrayList<CityairHistoryTrendVo>();
+				JSONArray cahinfo=json.getJSONArray("history");
+				for(int i=0;i<cahinfo.length();i++) {
+					JSONObject chj=cahinfo.getJSONObject(i);
+					CityairHistoryTrendVo chtv=new CityairHistoryTrendVo();
+					chtv.setStime(chj.getString("time"));
+					chtv.setAQI(chj.getString("AQI"));
+					chtv.setPM25(chj.getString("PM25"));
+					chtv.setPM10(chj.getString("PM10"));
+					chtv.setO3(chj.getString("o3"));
+					chtv.setCO(chj.getString("CO"));
+					chtv.setSO2(chj.getString("SO2"));
+					chtv.setNO2(chj.getString("NO2"));
+					reslist.add(chtv);
 				}
 			}
 			else {

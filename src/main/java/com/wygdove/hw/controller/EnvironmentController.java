@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wygdove.hw.common.constant.AttributeConstant;
 import com.wygdove.hw.common.constant.UriConstant;
+import com.wygdove.hw.common.utils.EnvicloudUtil;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 import com.wygdove.hw.service.environment.ICityairService;
 import com.wygdove.hw.service.environment.IDisasterService;
 import com.wygdove.hw.service.environment.IWeatherService;
+import com.wygdove.hw.vo.CityairHistoryTrendVo;
+import com.wygdove.hw.vo.CityairHistoryVo;
 import com.wygdove.hw.vo.WeatherForecastLifeVo;
 import com.wygdove.hw.vo.WeatherForecastVo;
 import com.wygdove.hw.vo.WeatherLiveVo;
@@ -39,6 +42,7 @@ public class EnvironmentController {
 	private IDisasterService disasterService;
 	@Resource
 	private ICityairService cityairService;
+	
 	
 	@RequestMapping("weather")
 	public String weather(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
@@ -92,12 +96,21 @@ public class EnvironmentController {
 		return UriConstant.ENVIRONMENT_DISASTER;
 	}
 
-	@RequestMapping("weather/wfchart")
+	@RequestMapping("chart/weatherforecast")
 	@ResponseBody
 	public List<WeatherForecastVo> wfchart(HttpServletRequest request,HttpServletResponse response) {
-		_log.info("controller:/environment/weather/wfchart");
+		_log.info("controller:/environment/chart/weatherforecast");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return null;
 		return weatherService.getwfs(hwuser.getCityCode());
+	}
+	
+	@RequestMapping("chart/cityairhistory")
+	@ResponseBody
+	public List<CityairHistoryTrendVo> cahchart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/environment/chart/cityairhistory");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		return cityairService.getchts(hwuser.getCityCode());
 	}
 }

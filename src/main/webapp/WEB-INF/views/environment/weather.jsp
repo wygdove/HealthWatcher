@@ -73,7 +73,7 @@
                 </div>
                 <div class="widget white-bg no-padding">
                     <div class="p-m">
-                        <span><big><big>未来一周天气变化</big></big></span>
+                        <span><big><big>未来天气变化</big></big></span>
                     </div>
 					<div class="row">
 						<table class="table text-center" frame="void">
@@ -187,7 +187,7 @@ function dowfchart() {
 		cache: true,
 		async: false,
 		type: 'get',
-		url: './environment/weather/wfchart',
+		url: './environment/chart/weatherforecast',
 		success:function(redata) {
 			var dw=[];
 			var da=[];
