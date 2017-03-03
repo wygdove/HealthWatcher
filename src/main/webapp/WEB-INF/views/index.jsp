@@ -102,17 +102,17 @@
 							<span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="indoor/indoorbase">
 								<i class=" fa fa-cube"></i>
-								<span class="nav-label">室内数据一</span>
+								<span class="nav-label">基础数据</span>
 							</a></li>
 							<li><a class="J_menuItem" href="#">
 								<i class=" fa fa-cube"></i>
-								<span class="nav-label">室内数据二</span>
+								<span class="nav-label">人体感应</span>
 							</a></li>
 							<li><a class="J_menuItem" href="#">
 								<i class=" fa fa-cube"></i>
-								<span class="nav-label">室内数据三</span>
+								<span class="nav-label">实时监控</span>
 							</a></li>
 						</ul>
 					</li>
@@ -131,10 +131,12 @@
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">空气质量</span>
 							</a></li>
+							<%--
 							<li><a class="J_menuItem" href="environment/pollution">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">环境污染</span>
 							</a></li>
+							--%>
 							<li><a class="J_menuItem" href="environment/disaster">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">自然灾害</span>

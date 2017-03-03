@@ -14,6 +14,7 @@ public class UriConstant {
 	
 //	public static final String PHYSICAL_="";
 
+	public static final String INDOOR_BASE="indoor/indoorbase";
 //	public static final String INDOOR_="";
 	
 	public static final String ENVIRONMENT_WEATHER="environment/weather";
