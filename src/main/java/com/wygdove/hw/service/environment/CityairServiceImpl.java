@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.wygdove.hw.common.constant.ProjectConstant;
 import com.wygdove.hw.common.utils.EnvicloudUtil;
 import com.wygdove.hw.vo.CityairAQIVo;
 import com.wygdove.hw.vo.CityairHistoryTrendVo;
@@ -76,8 +75,8 @@ public class CityairServiceImpl implements ICityairService {
 						}
 						else {
 							samp.put(item,samp.get(item)>xx?samp.get(item):xx);
-							simp.put(item,samp.get(item)<xx?samp.get(item):xx);
-							snmp.put(item,latelytime>Integer.parseInt(stime)?samp.get(item):xx);
+							simp.put(item,simp.get(item)<xx?simp.get(item):xx);
+							snmp.put(item,latelytime>Integer.parseInt(stime)?snmp.get(item):xx);
 						}
 					}
 				}
