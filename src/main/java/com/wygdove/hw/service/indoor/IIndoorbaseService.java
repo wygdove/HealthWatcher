@@ -1,0 +1,9 @@
+package com.wygdove.hw.service.indoor;
+
+import java.util.List;
+
+import com.wygdove.hw.vo.WenshiduVo;
+
+public interface IIndoorbaseService {
+	public List<WenshiduVo> getWsd(String sflag,String num); 
+}

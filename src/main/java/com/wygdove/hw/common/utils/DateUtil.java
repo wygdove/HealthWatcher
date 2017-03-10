@@ -3,6 +3,7 @@ package com.wygdove.hw.common.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @author wygdove
@@ -35,5 +36,12 @@ public class DateUtil {
 			case "Sun":res="周日";break;
 		}
 		return res;
+	}
+	
+	public static String getWsdTime(String sdtime) {
+		sdtime=sdtime.substring(sdtime.indexOf('(')+1,sdtime.indexOf(')'));
+		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("GMT+"+sdtime.substring(14,18)));
+		cal.setTimeInMillis(Long.parseLong(sdtime.substring(0,13)));
+		return sdf.format(Calendar.getInstance().getTime());
 	}
 }
