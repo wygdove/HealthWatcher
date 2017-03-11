@@ -2,6 +2,7 @@ package com.wygdove.hw.service.indoor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -39,6 +40,13 @@ public class IndoorbaseServiceImpl implements IIndoorbaseService {
 			_log.error(e.getMessage());
 		}
 		return reslist;
+	}
+
+	@Override
+	public String getgz(String sflag) {
+		String dtime=DateUtil.getNow();
+		int gzvalue=(new Random()).nextInt(100);
+		return dtime+" "+gzvalue;
 	}
 
 }

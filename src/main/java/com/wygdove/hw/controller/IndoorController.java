@@ -46,5 +46,16 @@ public class IndoorController {
 		String snum="20";
 		return indoorbaseService.getWsd(sflag,snum);
 	}
+	
+	@RequestMapping("chart/guangzhao")
+	@ResponseBody
+	public String guangzhaochart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/indoor/chart/guangzhao");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		String sflag="55";
+		return indoorbaseService.getgz(sflag);
+	}
 
 }

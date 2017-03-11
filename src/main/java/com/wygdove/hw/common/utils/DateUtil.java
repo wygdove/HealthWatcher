@@ -10,7 +10,7 @@ import java.util.TimeZone;
  * @since 2017年2月15日下午5:09:46
  */
 public class DateUtil {
-	private static final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public static String getNow() {
 		return sdf.format(Calendar.getInstance().getTime());

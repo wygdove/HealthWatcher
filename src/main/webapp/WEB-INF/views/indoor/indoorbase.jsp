@@ -42,8 +42,10 @@
 			<div class="col-sm-4">
                 <div class="widget white-bg">
                     <div class="row">
-                        <div class="col-xs-12 text-left">
+                        <div class="col-xs-4 text-left">
                             <span><big><big>光照</big></big></span>
+                        </div>
+                        <div id="div_gzupdate" class="col-xs-8 text-right">
                         </div>
                     </div>
 					<div class="row">
@@ -80,6 +82,7 @@
     <script>
 $(document).ready(function() {
 	dowsdchart();
+	dogzchart();
 });
 
 function dowsdchart() {
@@ -127,6 +130,35 @@ function setwsdchartdata(dataxaxis,dataserieswen,dataseriesshi) {
 		]
 	};
 	wenshiduchart.setOption(wenshiduoption);
+}
+
+function dogzchart() {
+	$.ajax({
+		cache: true,
+		async: false,
+		type: 'get',
+		url: './indoor/chart/guangzhao',
+		success:function(redata) {
+			setgzchartdata(redata.substring(0,19),parseInt(redata.substring(20,redata.length)));
+		},
+		error:function(redata) {
+			console.log(redata);
+		}
+	});
+}
+
+function setgzchartdata(dataupdate,datagz) {
+	$('#div_gzupdate').html("<span><small>更新时间："+dataupdate+"</small></span>");
+	// guangzhao
+	var guangzhaochart=echarts.init(document.getElementById("chart_guangzhao"));
+	guangzhaooption={
+		tooltip:{formatter:"{b} : {c}"},
+		series:[{
+			type:'gauge',radius:'90%',
+			data:[{value:datagz}]
+		}]
+	};
+	guangzhaochart.setOption(guangzhaooption,true);
 }
     </script>
 </body>
