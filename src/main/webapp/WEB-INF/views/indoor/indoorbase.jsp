@@ -83,6 +83,7 @@
 $(document).ready(function() {
 	dowsdchart();
 	dogzchart();
+	dopm25chart();
 });
 
 function dowsdchart() {
@@ -159,6 +160,45 @@ function setgzchartdata(dataupdate,datagz) {
 		}]
 	};
 	guangzhaochart.setOption(guangzhaooption,true);
+}
+
+function dopm25chart() {
+	$.ajax({
+		cache: true,
+		async: false,
+		type: 'get',
+		url: './indoor/chart/pmio',
+		success:function(redata) {
+			var dx=[];
+			var di=[];
+			var dot=[];
+			$(redata).each(function(i) {
+				dx.push(this.dtime);
+				di.push(this.pmin);
+				dot.push(this.pmout);
+			});
+			setpm25chartdata(dx,di,dot);
+		},
+		error:function(redata) {
+			console.log(redata);
+		}
+	});
+}
+
+function setpm25chartdata(dataxaxis,dataseriesin,dataseriesout) {
+	// pm25
+	var pm25chart=echarts.init(document.getElementById("chart_pm25"));
+	pm25option={
+		tooltip:{trigger: 'axis'},
+		legend:{data:['室内','室外']},
+		xAxis:{type: 'category',boundaryGap: false,data:dataxaxis},
+		yAxis:{type:'value'},
+		series:[
+			{name:'室内',type:'line',data:dataseriesin},
+			{name:'室外',type:'line',data:dataseriesout}
+		]
+	};
+	pm25chart.setOption(pm25option);
 }
     </script>
 </body>

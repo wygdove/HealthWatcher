@@ -45,6 +45,13 @@ public class DateUtil {
 		return sdf.format(cal.getTime());
 	}
 	
+	public static String getPmioTime(int offsethour) {
+		Calendar cal=Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY,cal.get(Calendar.HOUR_OF_DAY)-offsethour);
+		return sdf.format(cal.getTime());
+	}
 
-	
+
+
+
 }

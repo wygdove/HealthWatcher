@@ -16,6 +16,7 @@ import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 import com.wygdove.hw.service.indoor.IIndoorbaseService;
+import com.wygdove.hw.vo.PmInoutdoorVo;
 import com.wygdove.hw.vo.WenshiduVo;
 
 @Controller
@@ -56,6 +57,17 @@ public class IndoorController {
 		
 		String sflag="55";
 		return indoorbaseService.getgz(sflag);
+	}
+	
+	@RequestMapping("chart/pmio")
+	@ResponseBody
+	public List<PmInoutdoorVo> pmiochart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/indoor/chart/pmio");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		String sflag="55";
+		return indoorbaseService.getpm25io(sflag);
 	}
 
 }

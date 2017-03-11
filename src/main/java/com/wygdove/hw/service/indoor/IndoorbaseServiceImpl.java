@@ -13,6 +13,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.wygdove.hw.common.utils.DateUtil;
 import com.wygdove.hw.common.utils.SenserDataUtil;
+import com.wygdove.hw.vo.PmInoutdoorVo;
 import com.wygdove.hw.vo.WenshiduVo;
 
 @Service
@@ -47,6 +48,22 @@ public class IndoorbaseServiceImpl implements IIndoorbaseService {
 		String dtime=DateUtil.getNow();
 		int gzvalue=(new Random()).nextInt(100);
 		return dtime+" "+gzvalue;
+	}
+
+	@Override
+	public List<PmInoutdoorVo> getpm25io(String sflag) {
+		List<PmInoutdoorVo> reslist=null;
+		Random random=new Random();
+		reslist=new ArrayList<PmInoutdoorVo>();
+		for(int i=0;i<20;i++) {
+			PmInoutdoorVo pv=new PmInoutdoorVo();
+			pv.setSflag(sflag);
+			pv.setDtime(DateUtil.getPmioTime(i));
+			pv.setPmin(""+random.nextInt(200));
+			pv.setPmout(""+random.nextInt(500));
+			reslist.add(pv);
+		}
+		return reslist;
 	}
 
 }
