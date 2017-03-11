@@ -81,17 +81,25 @@
 							<span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#" data-index="0">
+							<li><a class="J_menuItem" href="physical/bodytemperature">
 								<i class="fa fa-cube"></i>
-								<span class="nav-label">体能数据一</span>
+								<span class="nav-label">体温图</span>
 							</a></li>
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="physical/pulse">
 								<i class="fa fa-cube"></i>
-								<span class="nav-label">体能数据二</span>
+								<span class="nav-label">脉搏图</span>
 							</a></li>
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="physical/breathe">
 								<i class="fa fa-cube"></i>
-								<span class="nav-label">体能数据三</span>
+								<span class="nav-label">呼吸图</span>
+							</a></li>
+							<li><a class="J_menuItem" href="physical/bloodoxygen">
+								<i class="fa fa-cube"></i>
+								<span class="nav-label">血氧图</span>
+							</a></li>
+							<li><a class="J_menuItem" href="physical/electrocardiogram">
+								<i class="fa fa-cube"></i>
+								<span class="nav-label">心电图</span>
 							</a></li>
 						</ul>
 					</li>
