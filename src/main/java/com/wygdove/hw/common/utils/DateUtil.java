@@ -42,6 +42,9 @@ public class DateUtil {
 		sdtime=sdtime.substring(sdtime.indexOf('(')+1,sdtime.indexOf(')'));
 		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("GMT+"+sdtime.substring(14,18)));
 		cal.setTimeInMillis(Long.parseLong(sdtime.substring(0,13)));
-		return sdf.format(Calendar.getInstance().getTime());
+		return sdf.format(cal.getTime());
 	}
+	
+
+	
 }
