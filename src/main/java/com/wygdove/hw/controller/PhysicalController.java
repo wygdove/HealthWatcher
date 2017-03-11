@@ -1,5 +1,8 @@
 package com.wygdove.hw.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,16 +10,23 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
+import com.wygdove.hw.service.physical.IPhysicalService;
+import com.wygdove.hw.vo.EcgVo;
+import com.wygdove.hw.vo.PmInoutdoorVo;
 
 @Controller
 @RequestMapping("physical")
 public class PhysicalController {
 	private static final Logger _log=Logger.getLogger(PhysicalController.class);
 
+	@Resource
+	private IPhysicalService physicalService;
+	
 	@RequestMapping("bodytemperature")
 	public String bodytemperature(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
 		_log.info("controller:/physical/bodytemperature");
@@ -61,5 +71,17 @@ public class PhysicalController {
 
 		return UriConstant.PHYSICAL_ELECTROCARDIOGRAM;
 	}
+	
+	@RequestMapping("chart/ecg")
+	@ResponseBody
+	public List<EcgVo> ecgchart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/physical/chart/ecg");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		return physicalService.getEcgdata("");
+	}
+	
+	
 	
 }
