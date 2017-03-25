@@ -34,7 +34,9 @@
 					</div>
 					<div class="row">
 						<div class="p-m">
-							设定报警值：<label id="label_bt_alert">38 °C</label>
+							<%--
+							已设定报警值：<label id="label_bo_alert"></label>
+							--%>
 						</div>
 					</div>
 					<div class="row">
@@ -96,6 +98,7 @@ function setbtchartdata(dataxaxis,dataseries) {
 			data:dataxaxis
 		},
 		yAxis:{
+			name:'°C',			
 		    type:'value',
 		    min:33,max:42,
 			splitLine:{show:false},

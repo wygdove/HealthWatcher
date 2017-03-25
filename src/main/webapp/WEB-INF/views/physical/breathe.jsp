@@ -18,24 +18,103 @@
 <link href="resources/css/plugins/chosen/chosen.css" rel="stylesheet">
 <link href="resources/css/plugins/iCheck/custom.css" rel="stylesheet">
 <link href="resources/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-
+<style>
+.echarts{height:400px;}
+</style>
 </head>
 <body class="gray-bg">
-	<div class="wrapper wrapper-content animated fadeIn">
+    <div class="wrapper wrapper-content animated fadeInRight">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="tabs-container">
-					<div class="panel-body">
-						${str }
+			<div class="col-sm-12">
+                <div class="widget white-bg">
+					<div class="row">
+						<div class="col-xs-12 text-left">
+							<span><big><big>呼吸图</big></big></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="p-m">
+							<%--
+							已设定报警值：<label id="label_bo_alert"></label>
+							--%>
+						</div>
+					</div>
+					<div class="row">
+						<div class="echarts" id="chart_breathe"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<script src="resources/js/jquery.min.js?v=2.1.4"></script>
-	<script src="resources/js/bootstrap.min.js?v=3.3.6"></script>
-	<script src="resources/js/content.min.js?v=1.0.0"></script>
+    </div>
+    <script src="resources/js/jquery.min.js?v=2.1.4"></script>
+    <script src="resources/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="resources/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="resources/js/content.min.js?v=1.0.0"></script>
+    <script src="resources/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="resources/js/plugins/flot/jquery.flot.js"></script>
+    <script src="resources/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="resources/js/plugins/flot/jquery.flot.resize.js"></script>
+	<script src="resources/js/plugins/echarts/echarts.min.js"></script>
     <script src="resources/js/qq-tajs-stats.js"></script>
+    <script>
+$(document).ready(function(){
+	dobreathechart();
+});
+
+function dobreathechart() {
+	$.ajax({
+		cache: true,
+		async: false,
+		type: 'post',
+		url: './physical/chart/common',
+		data: {
+			sensertype:'breathe'
+		},
+		success:function(redata) {
+			var dx=[];
+			var ds=[];
+			$(redata).each(function(i) {
+				dx.push(this.phytime);
+				ds.push(this.phyvalue);
+			});
+			setbreathechartdata(dx,ds);
+		},
+		error:function(redata) {
+			console.log(redata);
+		}
+	});
+}
+
+function setbreathechartdata(dataxaxis,dataseries) {
+	console.log(dataxaxis);
+	console.log(dataseries);
+	var breathechart=echarts.init(document.getElementById("chart_breathe"));
+	breatheoption={
+		backgroundColor:'#0f375f',
+		tooltip:{trigger:'axis'},
+	    grid:{left:'6%',right:'10%'},
+		xAxis:{
+		    name:'hh:mm:ss.mmm',
+			axisLine:{lineStyle:{color:'#ccc'}},
+			data:dataxaxis
+		},
+		yAxis:{
+		    name:'mV',
+		    type:'value',
+			splitLine:{show:false},
+			axisLine:{lineStyle:{color:'#ccc'}}
+		},
+		series: [{
+			type:'line',
+			lineStyle:{normal:{color:'#ccc'}},
+			itemStyle:{normal:{color:'#ccc'}},
+			data:dataseries
+		}]
+	};
+	breathechart.setOption(breatheoption);
+}
+
+		
+    </script>
 </body>
 </html>

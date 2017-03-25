@@ -34,7 +34,9 @@
 					</div>
 					<div class="row">
 						<div class="p-m">
-							设定报警值：<label id="label_ecg_alert">100</label>
+							<%--
+							已设定报警值：<label id="label_bo_alert"></label>
+							--%>
 						</div>
 					</div>
 					<div class="row">
@@ -63,14 +65,17 @@ function doecgchart() {
 	$.ajax({
 		cache: true,
 		async: false,
-		type: 'get',
-		url: './physical/chart/ecg',
+		type: 'post',
+		url: './physical/chart/common',
+		data: {
+			sensertype:'electrocardiogram'
+		},
 		success:function(redata) {
 			var dx=[];
 			var ds=[];
 			$(redata).each(function(i) {
-				dx.push(this.dtime);
-				ds.push(this.ecgvalue);
+				dx.push(this.phytime);
+				ds.push(this.phyvalue);
 			});
 			setecgchartdata(dx,ds);
 		},
@@ -84,19 +89,21 @@ function setecgchartdata(dataxaxis,dataseries) {
 	var ecgchart=echarts.init(document.getElementById("chart_ecg"));
 	ecgoption={
 		backgroundColor:'#0f375f',
-		tooltip:{},
-	    grid:{left:'6%',right:'6%'},
+	    tooltip:{trigger:'axis'},
+	    grid:{left:'6%',right:'10%'},
 		xAxis:{
+		    name:'hh:mm:ss.mmm',
 			axisLine:{lineStyle:{color:'#ccc'}},
 			data:dataxaxis
 		},
 		yAxis:{
+		    name:'mV',
 			splitLine:{show:false},
 			axisLine:{lineStyle:{color:'#ccc'}}
 		},
 		series: [{
 			type:'line',
-			smooth:true,symbolSize:0,
+			symbol:'none',
 			lineStyle:{normal:{color:'#ccc'}},
 			data:dataseries
 		}]
