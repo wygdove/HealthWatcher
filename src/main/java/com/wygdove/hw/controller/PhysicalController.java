@@ -17,7 +17,7 @@ import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 import com.wygdove.hw.service.physical.IPhysicalService;
 import com.wygdove.hw.vo.EcgVo;
-import com.wygdove.hw.vo.PmInoutdoorVo;
+import com.wygdove.hw.vo.PhysicalCommonVo;
 
 @Controller
 @RequestMapping("physical")
@@ -82,6 +82,26 @@ public class PhysicalController {
 		return physicalService.getEcgdata("");
 	}
 	
+	@RequestMapping("chart/bodytemperature")
+	@ResponseBody
+	public List<EcgVo> bodytemperaturechart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/physical/chart/bodytemperature");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		return physicalService.getEcgdata("");
+	}
 	
+	@RequestMapping("chart/common")
+	@ResponseBody
+	public List<PhysicalCommonVo> commonchart(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/physical/chart/common");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		String sflag="";
+		String stype=request.getParameter("sensertype");
+		return physicalService.getdata(sflag,stype);
+	}
 	
 }
