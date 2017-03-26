@@ -48,7 +48,7 @@
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
 								<li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>
-								<li><a class="J_menuItem" href="person/infolist">个人资料</a></li>
+								<li><a class="J_menuItem" href="setting/personalinfo">个人资料</a></li>
 								<li class=" hidden-xs">
 									<a class="J_menuItem" onclick="javascript:showsuggest(this)" 
 										data-toggle="modal" data-target="#suggest">意见反馈</a>
@@ -187,6 +187,7 @@
 							</a>
 						</li>
 					</ul>
+					<%--
 					<ul class="nav navbar-top-links navbar-left">
 					  <li class="dropdown hidden-xs">
 						<a class="right-sidebar-toggle" aria-expanded="false" style="padding:12px 12px 10px 12px;">
@@ -201,6 +202,8 @@
 						  </a>
 					  </li>
 					</ul>
+					--%>
+					<%--
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -239,6 +242,7 @@
                             <a class="right-sidebar-toggle" aria-expanded="false"><i class="fa fa-gear fa-spin"></i>设置</a>
                         </li>
                     </ul>
+            		--%>
                 </nav>
             </div>
 			<div class="row J_mainContent" id="content-main">
@@ -308,17 +312,18 @@
 			if(!$("#suggestion").valid()){
 				return ;
 			}
-			var message = $("#message").val();
+			var message=$("#message").val();
 			$("#suggest").modal("hide");
 			$.ajax({
-				type : 'post',
-				url  : './suggestion/sinfo',
-				data : {
-					message:message,
-					userid:userid
+				type: 'post',
+				url: './setting/suggest',
+				data: {
+					message:message
 				},
 				success:function(redata) {
-					console.log(redata);
+					if(redata=='success') {
+						alert("发送成功，感谢您的反馈！");
+					}
 				},
 				error:function(redata) {
 					console.log(redata);
