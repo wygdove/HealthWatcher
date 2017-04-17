@@ -52,22 +52,6 @@
 								<li class=" hidden-xs">
 									<a class="J_menuItem" onclick="javascript:showsuggest(this)" 
 										data-toggle="modal" data-target="#suggest">意见反馈</a>
-									<div class="modal inmodal" id="suggest" tabindex="-1" role="dialog" aria-hidden="true">
-										<form class="modal-dialog" id="suggestion">
-											<div class="modal-content animated bounceInRight">
-												<div class="modal-body" style="height: 100%">
-													<div class="form-group">
-														<textarea id="message" name="message" class="form-control"
-															style="height: 230px; margin-top: 20px;resize: none"></textarea>
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-													<button type="button" class="btn btn-primary" onclick="addsuggestion()">确定</button>
-												</div>
-											</div>
-										</form>
-									</div>
 								</li>
 								<li class="divider"></li>
 								<li><a href="logon/logout">安全退出</a></li>
@@ -148,6 +132,28 @@
 							<li><a class="J_menuItem" href="environment/disaster">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">自然灾害</span>
+							</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-sliders"></i>
+							<span class="nav-label">系统设置</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="setting/personal">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">个人资料</span>
+							</a></li>
+							<li><a class="J_menuItem" href="setting/device">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">设备管理</span>
+							</a></li>
+							<li><a class="J_menuItem"  onclick="javascript:showsuggest(this)" 
+										data-toggle="modal" data-target="#suggest">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">意见反馈</span>
 							</a></li>
 						</ul>
 					</li>
@@ -243,6 +249,11 @@
                         </li>
                     </ul>
             		--%>
+            		<ul class="nav navbar-top-links navbar-right">
+            			<li class="dropdown hidden-xs">
+            				<a href="logon/logout">安全退出</a>
+            			</li>
+            		</ul>
                 </nav>
             </div>
 			<div class="row J_mainContent" id="content-main">
@@ -254,6 +265,24 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal inmodal" id="suggest" tabindex="-1" role="dialog" aria-hidden="true">
+		<form class="modal-dialog" id="suggestion">
+			<div class="modal-content animated bounceInRight">
+				<div class="modal-body" style="height: 100%">
+					<div class="form-group">
+						<textarea id="message" name="message" class="form-control"
+							style="height: 230px; margin-top: 20px;resize: none"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" onclick="addsuggestion()">确定</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
 	
 	<script src="resources/js/jquery.min.js?v=2.1.4"></script>
 	<script src="resources/js/bootstrap.min.js?v=3.3.6"></script>

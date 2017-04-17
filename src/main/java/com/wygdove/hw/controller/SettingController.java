@@ -30,14 +30,14 @@ public class SettingController {
 		return "success";
 	}
 	
-	@RequestMapping("personalinfo")
+	@RequestMapping("personal")
 	public String personalinfo(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
-		_log.info("controller:/setting/personalinfo");
+		_log.info("controller:/setting/personal");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
 		map.addAttribute("hwuser",hwuser);
-		return UriConstant.SETTING_PERSONALINFO;
+		return UriConstant.SETTING_PERSONAL;
 	}
 	
 	@RequestMapping("personalupdate")
@@ -54,6 +54,16 @@ public class SettingController {
 		String script="<script>alert('"+usernickname+"');</script>";
 //		return "success";
 		return script;
+	}
+	
+	@RequestMapping("device")
+	public String device(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/setting/device");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return UriConstant.LOGON_LOGIN;
+		
+		map.addAttribute("hwuser",hwuser);
+		return UriConstant.SETTING_DEVICE;
 	}
 	
 }

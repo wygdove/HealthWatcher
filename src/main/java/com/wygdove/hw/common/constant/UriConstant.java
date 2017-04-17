@@ -30,7 +30,8 @@ public class UriConstant {
 	public static final String ENVIRONMENT_POLLUTION="environment/pollution";
 	public static final String ENVIRONMENT_DISASTER="environment/disaster";
 
-	public static final String SETTING_PERSONALINFO="setting/personalinfo";
+	public static final String SETTING_PERSONAL="setting/personal";
+	public static final String SETTING_DEVICE="setting/device";
 //	public static final String SETTING_="";
 
 //	public static final String _="";
