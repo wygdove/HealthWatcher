@@ -118,7 +118,7 @@
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">人体感应</span>
 							</a></li>
-							<li><a class="J_menuItem" href="#">
+							<li><a class="J_menuItem" href="indoor/camera">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">实时监控</span>
 							</a></li>

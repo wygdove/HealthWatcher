@@ -36,6 +36,15 @@ public class IndoorController {
 		return UriConstant.INDOOR_BASE;
 	}
 	
+	@RequestMapping("camera")
+	public String camera(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+		_log.info("controller:/indoor/camera");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return UriConstant.LOGON_LOGIN;
+		
+		return UriConstant.INDOOR_CAMERA;
+	}
+	
 	@RequestMapping("chart/wenshidu")
 	@ResponseBody
 	public List<WenshiduVo> wenshiduchart(HttpServletRequest request,HttpServletResponse response) {
