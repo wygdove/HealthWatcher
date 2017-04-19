@@ -94,6 +94,28 @@
 							<span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="indoor2/pmio">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">PM2.5</span>
+							</a></li>
+							<li><a class="J_menuItem" href="indoor2/wenshidu">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">温湿度</span>
+							</a></li>
+							<li><a class="J_menuItem" href="indoor2/camera">
+								<i class=" fa fa-cube"></i>
+								<span class="nav-label">实时监控</span>
+							</a></li>
+						</ul>
+					</li>
+					<%--
+					<li>
+						<a href="#">
+							<i class="fa fa-sliders"></i>
+							<span class="nav-label">室内监测</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="indoor/indoorbase">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">基础数据</span>
@@ -108,6 +130,7 @@
 							</a></li>
 						</ul>
 					</li>
+					--%>
 					<li>
 						<a href="#">
 							<i class="fa fa-sliders"></i>
