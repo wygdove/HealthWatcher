@@ -21,6 +21,10 @@ public class DateUtil {
 	public static Date getNowDate() {
 		return Calendar.getInstance().getTime();
 	}
+	
+	public static String getNowTimestamp() {
+		return ""+Calendar.getInstance().getTimeInMillis();
+	}
 
 	public static String getZhou(String date) {
 		// date="2017-02-23";

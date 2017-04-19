@@ -1,5 +1,8 @@
 package com.wygdove.hw.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,8 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.wygdove.hw.common.constant.UriConstant;
+import com.wygdove.hw.common.utils.DateUtil;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 
@@ -54,6 +61,35 @@ public class SettingController {
 		String script="<script>alert('"+usernickname+"');</script>";
 //		return "success";
 		return script;
+	}
+	
+	@RequestMapping(value="uploadfile",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String uploadfile(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/setting/uploadfile");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return "";
+		
+		String avatorpath=request.getServletContext().getRealPath("/")+"resources\\img\\useravatar\\";
+		_log.info("avatorpath:"+avatorpath);
+		
+		String fname="";
+		CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
+				request.getSession().getServletContext());
+		if(multipartResolver.isMultipart(request)) {
+			MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+			MultipartFile file=multiRequest.getFile("imgfile");
+			if(file!=null) {
+				fname=DateUtil.getNowTimestamp()+"_"+file.getOriginalFilename();
+				File localFile=new File(avatorpath,fname);
+				try {
+					file.transferTo(localFile);
+				}catch(IllegalStateException|IOException e) {
+					_log.error(e.getMessage());
+				}
+			}
+		}
+		return fname;
 	}
 	
 	@RequestMapping("device")
