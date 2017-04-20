@@ -30,7 +30,7 @@ public class DateUtil {
 		// date="2017-02-23";
 		String res="";
 		Calendar calendar=Calendar.getInstance();
-		calendar.set(Integer.parseInt(date.substring(0,4)),Integer.parseInt(date.substring(5,7)),
+		calendar.set(Integer.parseInt(date.substring(0,4)),Integer.parseInt(date.substring(5,7))-1,
 				Integer.parseInt(date.substring(8,10)),0,0,0);
 		String weekx=calendar.getTime().toString().substring(0,3);
 		switch(weekx) {
