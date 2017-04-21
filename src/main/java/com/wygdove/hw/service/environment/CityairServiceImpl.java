@@ -26,22 +26,27 @@ public class CityairServiceImpl implements ICityairService {
 		CityairLiveVo res=null;
 		try {
 			JSONObject json=new JsonNode(EnvicloudUtil.getCityairLive(citycode)).getObject();
-			if(json.getInt("rcode")==200&&json.getString("rdesc").equals("Success")) {
-				res=new CityairLiveVo();
-				String stime=json.getString("time");
-				String scaltime=stime.substring(0,4)+"/"+stime.substring(4,6)+"/"+stime.substring(6,8)+" "+stime.substring(8,10)+":00";
-				res.setCalTime(scaltime);
-				res.setCalAqi(json.getString("AQI"));
-				res.setCalPrimary(json.getString("primary"));
-				res.setCalPm25(json.getString("PM25"));
-				res.setCalPm10(json.getString("PM10"));
-				res.setCalO3(json.getString("o3"));
-				res.setCalCo(json.getString("CO"));
-				res.setCalSo2(json.getString("SO2"));
-				res.setCalNo2(json.getString("NO2"));
+			if(json.has("rcode")&&json.has("rdesc")) {
+				if(json.getInt("rcode")==200&&json.getString("rdesc").equals("Success")) {
+					res=new CityairLiveVo();
+					String stime=json.getString("time");
+					String scaltime=stime.substring(0,4)+"/"+stime.substring(4,6)+"/"+stime.substring(6,8)+" "+stime.substring(8,10)+":00";
+					res.setCalTime(scaltime);
+					res.setCalAqi(json.getString("AQI"));
+					res.setCalPrimary(json.getString("primary"));
+					res.setCalPm25(json.getString("PM25"));
+					res.setCalPm10(json.getString("PM10"));
+					res.setCalO3(json.getString("o3"));
+					res.setCalCo(json.getString("CO"));
+					res.setCalSo2(json.getString("SO2"));
+					res.setCalNo2(json.getString("NO2"));
+				}
+				else {
+					_log.error(""+json.getInt("rcode")+"\t"+json.getString("rdesc"));
+				}
 			}
 			else {
-				_log.error(""+json.getInt("rcode")+"\t"+json.getString("rdesc"));
+				_log.error(json.toString());
 			}
 		} catch (UnirestException | IOException e) {
 			_log.error(e.getMessage());
