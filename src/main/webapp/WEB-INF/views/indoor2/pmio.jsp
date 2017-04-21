@@ -80,14 +80,43 @@ function dopm25chart() {
 function setpm25chartdata(dataxaxis,dataseriesin,dataseriesout) {
 	var pm25chart=echarts.init(document.getElementById("chart_pm25"));
 	pm25option={
-		tooltip:{trigger: 'axis'},
-		legend:{data:['室内','室外']},
-		xAxis:{type: 'category',boundaryGap: false,data:dataxaxis},
-		yAxis:{type:'value'},
-		series:[
-			{name:'室内',type:'line',data:dataseriesin},
-			{name:'室外',type:'line',data:dataseriesout}
-		]
+		    tooltip:{trigger:'axis'},
+		    legend:{data:['室内','室外']},
+		    xAxis:{data:dataxaxis},
+		    yAxis: {
+		        splitLine:{show:false}
+		    },
+// 		    visualMap: {
+// 		        top:10,right:10,
+// 		        pieces:[
+// 		            {gt:0,lte:50,color:'#096'},
+// 		            {gt:50,lte:100,color:'#ffde33'},
+// 		            {gt:100,lte:150,color:'#ff9933'},
+// 		            {gt:150,lte:200,color:'#cc0033'},
+// 		            {gt:200,lte:300,color:'#660099'},
+// 		            {gt:300,color:'#7e0023'}
+// 		        ],
+// 		        outOfRange:{color:'#999'}
+// 		    },
+		    series: [{
+		        name:'室内',
+		        type:'line',
+		        smooth:true,
+		        data:dataseriesin,
+		        markLine:{
+		            silent:true,
+		            data:[{yAxis:50},{yAxis:100},{yAxis:150},{yAxis:200},{yAxis:250},{yAxis:300}]
+		        }
+		    },{
+		        name:'室外',
+		        type:'line',
+		        smooth:true,
+		        data:dataseriesout,
+		        markLine:{
+		            silent:true,
+		            data:[{yAxis:50},{yAxis:100},{yAxis:150},{yAxis:200},{yAxis:250},{yAxis:300}]
+		        }}
+		    ]
 	};
 	pm25chart.setOption(pm25option);
 }

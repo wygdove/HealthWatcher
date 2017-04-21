@@ -59,8 +59,11 @@ public class IndoorbaseServiceImpl implements IIndoorbaseService {
 			PmInoutdoorVo pv=new PmInoutdoorVo();
 			pv.setSflag(sflag);
 			pv.setDtime(DateUtil.getPmioTime(i));
-			pv.setPmin(""+random.nextInt(200));
-			pv.setPmout(""+random.nextInt(500));
+			int a=random.nextInt(190)+10;
+			int b=random.nextInt(330)+20;
+			if(a>b){int t=a;a=b;b=t;}
+			pv.setPmin(""+a);
+			pv.setPmout(""+b);
 			reslist.add(pv);
 		}
 		return reslist;

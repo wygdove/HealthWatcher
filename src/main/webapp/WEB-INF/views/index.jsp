@@ -37,15 +37,20 @@
 							</span>
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear">
-									<span class="block m-t-xs">
+									<span class="block m-t-xs" style="margin-left:10px;">
 										<strong class="font-bold">
 											<c:out value="${hwuser.displayName }" default="获取异常"></c:out>
 										</strong>
+										<%--
 										<b class="caret"></b>
+										--%>
 									</span>
+									<%--
 									<span class="text-muted text-xs block"> </span>
+									--%>
 								</span>
 							</a>
+							<%--
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
 								<li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>
 								<li><a class="J_menuItem" href="setting/personalinfo">个人资料</a></li>
@@ -56,6 +61,7 @@
 								<li class="divider"></li>
 								<li><a href="logon/logout">安全退出</a></li>
 							</ul>
+							--%>
 						</div>
 					</li>
 					<li>
@@ -180,6 +186,7 @@
 							</a></li>
 						</ul>
 					</li>
+					<%--
 					<li>
 						<a href="#">
 							<i class="fa fa-sliders"></i>
@@ -197,6 +204,7 @@
 							</a></li>
 						</ul>
 					</li>
+					--%>
 				</ul>
 			</div>
 		</nav>
@@ -207,12 +215,14 @@
 					<ul class="nav navbar-top-links navbar-left">
 						<li class="dropdown hidden-xs">
 							<a class="right-sidebar-toggle" aria-expanded="false" style="padding: 22px 15px 10px 20px;">
+								<span>当前城市：</span>
 								<span id="hwusercityname" data-id="${hwuser.cityCode }">${hwuser.cityName }</span>
 							</a>
 						</li>
 						<li class="dropdown hidden-xs">
 							<a class="right-sidebar-toggle" aria-expanded="false" style="padding: 22px 12px 10px 12px;"> 
-								<span id="nowtime">2017/02/17 11:31</span> 
+								<span>现在时间：</span>
+								<span id="nowtime"></span> 
 							</a>
 						</li>
 					</ul>
@@ -324,14 +334,14 @@
 		$(document).ready(function() {
 			$('.selecter').chosen();
 			$("#suggestion").validate({
-				rules:{
-					message:"required"
-				},
-				messages:{
-					message:"反馈的意见不能为空！"
-				}
+				rules:{message:"required"},
+				messages:{message:"反馈的意见不能为空！"}
 			});
+			$("#nowtime").html(formatDate((new Date()).getTime()).substr(0,16));
 		});	
+		setInterval(function() {
+			$("#nowtime").html(formatDate((new Date()).getTime()).substr(0,16));
+		}, 9988);
 		
 		function getcitylist() {
 			$.ajax({
@@ -382,6 +392,22 @@
 				}
 			});	 
 		}
+		
+		function formatDate(timestamp) { 
+			var date=new Date(parseInt(timestamp));
+			var year=date.getFullYear();
+			var month=date.getMonth()+1; 
+			var day=date.getDate(); 
+			var hour=date.getHours(); 
+			var minute=date.getMinutes(); 
+			var second=date.getSeconds();
+			if(month.toString().length==1)month="0"+month;
+			if(day.toString().length==1)day="0"+day;
+			if(hour.toString().length==1)hour="0"+hour;
+			if(minute.toString().length==1)minute="0"+minute;
+			if(second.toString().length==1)second="0"+second;
+			return year+"/"+month+"/"+day+" "+hour+":"+minute+":"+second; 
+		} 
 	</script>
 </body>
 </html>
