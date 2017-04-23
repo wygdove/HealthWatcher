@@ -21,8 +21,8 @@ CREATE TABLE hw_user (
 -- account_type : admin user
 -- status : enable disable
 
-insert into hw_user values(1,'wygdove','wygdove','admin','123123','enable','101010100','北京',now(),now(),'defaultavator.jpg');
-insert into hw_user values(2,'test','test','user','123123','enable','101010100','北京',now(),now(),'defaultavator.jpg');
+insert into hw_user values(1,'wygdove','wygdove','admin','123123','enable','101010100','北京',now(),now(),'resources/img/useravatar/defaultavator.jpg');
+insert into hw_user values(2,'test','test','user','test','enable','101010100','北京',now(),now(),'resources/img/useravatar/defaultavator.jpg');
 
 
 

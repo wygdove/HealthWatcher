@@ -3,6 +3,7 @@ package com.wygdove.hw.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,11 +20,15 @@ import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.DateUtil;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
+import com.wygdove.hw.service.setting.IPersonalInfoService;
 
 @Controller
 @RequestMapping("setting")
 public class SettingController {
 	private static final Logger _log=Logger.getLogger(SettingController.class);
+	
+	@Resource
+	private IPersonalInfoService personalInfoService;
 	
 	@RequestMapping("suggest")
 	@ResponseBody
@@ -63,6 +68,17 @@ public class SettingController {
 		return script;
 	}
 	
+	@RequestMapping("updateavatar")
+	@ResponseBody
+	public String updateavatar(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/setting/updateavatar");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return "";
+		
+		String avatarfile=request.getParameter("avatarfile");
+		return personalInfoService.updateavatar(hwuser,avatarfile);
+	}
+	
 	@RequestMapping(value="uploadfile",produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String uploadfile(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
@@ -70,8 +86,8 @@ public class SettingController {
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return "";
 		
-		String avatorpath=request.getServletContext().getRealPath("/")+"resources\\img\\useravatar\\";
-		_log.info("avatorpath:"+avatorpath);
+		String aratarpath=request.getServletContext().getRealPath("/")+"resources\\img\\useravatar\\";
+		_log.info("aratarpath:"+aratarpath);
 		
 		String fname="";
 		CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
@@ -81,7 +97,7 @@ public class SettingController {
 			MultipartFile file=multiRequest.getFile("imgfile");
 			if(file!=null) {
 				fname=DateUtil.getNowTimestamp()+"_"+file.getOriginalFilename();
-				File localFile=new File(avatorpath,fname);
+				File localFile=new File(aratarpath,fname);
 				try {
 					file.transferTo(localFile);
 				}catch(IllegalStateException|IOException e) {

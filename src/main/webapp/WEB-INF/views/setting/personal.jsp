@@ -46,6 +46,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">用户名：</label>
                                 <div class="col-sm-3">
+                                <input id="userid" name="userid" class="form-control" type="text" value="${hwuser.userId }" style="display:none;">
                                     <input id="username" name="username" class="form-control" type="text" value="${hwuser.loginAccount }" disabled="disabled">
                                 </div>
                             </div>
@@ -253,8 +254,9 @@
 		    xhr.onload=function() {
 				if(xhr.status==200) {
 					var redata=xhr.response;
-					console.log(redata);
+					// console.log(redata);
 					$("#personalavator").attr("src","resources/img/useravatar/"+redata);
+					updateavatar();
 				}
 		    };
 		    xhr.send(form);
@@ -263,6 +265,25 @@
 			alert("上传失败！");
 			console.log(err);
 		}
+	}
+	
+	function updateavatar() {
+		var imgurl=$("#personalavator").attr('src');
+		$.ajax({
+			type: 'post',
+			url: './setting/updateavatar',
+			data: {
+				avatarfile:imgurl
+			},
+			success:function(redata) {
+				if(redata=='success') {
+					alert("头像更新成功，下次登录生效！");
+				}
+			},
+			error:function(redata) {
+				console.log(redata);
+			}
+		});	 
 	}
 
 	function getImgFile() {

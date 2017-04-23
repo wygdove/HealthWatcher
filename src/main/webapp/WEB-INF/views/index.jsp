@@ -20,6 +20,17 @@
 <link href="resources/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 <link href="resources/css/animate.min.css" rel="stylesheet">
 <link href="resources/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<style>
+.img-circle {
+    border-radius: 50%;
+    display: block;
+    height: 80px;
+    width: 80px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    overflow: hidden;
+}
+</style>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden">
@@ -33,7 +44,7 @@
 					<li class="nav-header">
 						<div class="dropdown profile-element">
 							<span>
-								<img alt="image" class="img-circle" src="resources/img/useravatar/defaultavator.jpg" />
+								<img alt="image" class="img-circle" src="<c:out value="${hwuser.userAvatar }" default="resources/img/useravatar/defaultavator.jpg"></c:out>" />
 							</span>
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear">
@@ -108,10 +119,12 @@
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">温湿度</span>
 							</a></li>
+							<%--
 							<li><a class="J_menuItem" href="indoor2/camera">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">实时监控</span>
 							</a></li>
+							--%>
 						</ul>
 					</li>
 					<%--
