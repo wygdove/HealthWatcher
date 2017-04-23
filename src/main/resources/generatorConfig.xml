@@ -21,10 +21,12 @@
 			targetProject="healthwatcher" type="XMLMAPPER" />
 
 
+		<table schema="healthwatcher" tableName="hw_suggest"></table>
+
+		<!--
 		<table schema="healthwatcher" tableName="hw_user"></table>
 		<table schema="healthwatcher" tableName="hw_device_type"></table>
 		<table schema="healthwatcher" tableName="hw_device"></table>
-		<!--
 		<table schema="healthwatcher" tableName="envi_citycode">
 			<generatedKey column="areaid" sqlStatement="mysql" identity="true" />
 		</table>

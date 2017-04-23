@@ -32,6 +32,7 @@ public class UriConstant {
 
 	public static final String SETTING_PERSONAL="setting/personal";
 	public static final String SETTING_DEVICE="setting/device";
+	public static final String SETTING_SUGGEST="setting/suggest";
 //	public static final String SETTING_="";
 
 //	public static final String _="";

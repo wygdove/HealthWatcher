@@ -69,3 +69,12 @@ insert into hw_device values(8,'温湿度传感器1','888',8,TRUE,2);
 -- insert into hw_device values(9,'光照传感器1','999',9,TRUE,2);
 insert into hw_device values(10,'摄像头1','HSL-231513-VNZUZ',9,TRUE,2);
 
+
+
+DROP TABLE IF EXISTS hw_suggest;
+CREATE TABLE hw_suggest (
+	suggest_id int(10) NOT NULL AUTO_INCREMENT,
+	message longtext DEFAULT NULL,
+	user_id int(10) DEFAULT NULL,
+	PRIMARY KEY (suggest_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

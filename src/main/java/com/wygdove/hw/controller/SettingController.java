@@ -23,6 +23,7 @@ import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 import com.wygdove.hw.service.setting.IEnvicityService;
 import com.wygdove.hw.service.setting.IPersonalInfoService;
+import com.wygdove.hw.service.setting.ISuggestService;
 import com.wygdove.hw.vo.EnvicityVo;
 
 @Controller
@@ -34,17 +35,30 @@ public class SettingController {
 	private IPersonalInfoService personalInfoService;
 	@Resource
 	private IEnvicityService envicityService;
+	@Resource
+	private ISuggestService suggestService;
 	
-	@RequestMapping("suggest")
+	@RequestMapping(value="addsuggest",produces="text/html;charset=UTF-8")
 	@ResponseBody
+	public String addsuggest(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/setting/addsuggest");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return "";
+		
+		String message=request.getParameter("message");
+		String res=suggestService.addsuggest(hwuser,message);
+		String script="<script>alert('"+res+"');</script>";
+		return script;
+	}
+	
+
+	@RequestMapping("suggest")
 	public String suggest(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
 		_log.info("controller:/setting/suggest");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return "";
 		
-		String message=request.getParameter("message");
-		_log.info("message:"+message);
-		return "success";
+		return UriConstant.SETTING_SUGGEST;
 	}
 	
 	@RequestMapping("personal")

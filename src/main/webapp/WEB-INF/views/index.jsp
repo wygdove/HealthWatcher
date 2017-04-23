@@ -52,27 +52,9 @@
 										<strong class="font-bold">
 											<c:out value="${hwuser.displayName }" default="获取异常"></c:out>
 										</strong>
-										<%--
-										<b class="caret"></b>
-										--%>
 									</span>
-									<%--
-									<span class="text-muted text-xs block"> </span>
-									--%>
 								</span>
 							</a>
-							<%--
-							<ul class="dropdown-menu animated fadeInRight m-t-xs">
-								<li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>
-								<li><a class="J_menuItem" href="setting/personalinfo">个人资料</a></li>
-								<li class=" hidden-xs">
-									<a class="J_menuItem" onclick="javascript:showsuggest(this)" 
-										data-toggle="modal" data-target="#suggest">意见反馈</a>
-								</li>
-								<li class="divider"></li>
-								<li><a href="logon/logout">安全退出</a></li>
-							</ul>
-							--%>
 						</div>
 					</li>
 					<li>
@@ -192,32 +174,12 @@
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">设备管理</span>
 							</a></li>
-							<li><a class="J_menuItem"  onclick="javascript:showsuggest(this)" 
-										data-toggle="modal" data-target="#suggest">
+							<li><a class="J_menuItem"  href="setting/suggest">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">意见反馈</span>
 							</a></li>
 						</ul>
 					</li>
-					<%--
-					<li>
-						<a href="#">
-							<i class="fa fa-sliders"></i>
-							<span class="nav-label">测试</span>
-							<span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="test">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">test</span>
-							</a></li>
-							<li><a class="J_menuItem" href="testproject?str=123">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">testproject</span>
-							</a></li>
-						</ul>
-					</li>
-					--%>
 				</ul>
 			</div>
 		</nav>
@@ -239,62 +201,6 @@
 							</a>
 						</li>
 					</ul>
-					<%--
-					<ul class="nav navbar-top-links navbar-left">
-					  <li class="dropdown hidden-xs">
-						<a class="right-sidebar-toggle" aria-expanded="false" style="padding:12px 12px 10px 12px;">
-							<select class="selecter" id="select_city" style="width:100px;">
-							  <c:if test="${!empty hwuser.cityCode }">
-							  	<option value="${hwuser.cityCode }" selected="selected">${hwuser.cityName }</option>
-							  </c:if>
-							  <option value="beijing">北京</option>
-							  <option value="tianjin">天津</option>
-							  <option value="kaifeng">开封</option>
-							</select>
-						  </a>
-					  </li>
-					</ul>
-					--%>
-					<%--
-                    <ul class="nav navbar-top-links navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-alerts">
-                                <li>
-                                    <a href="mailbox.html">
-                                        <div>
-                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
-                                            <span class="pull-right text-muted small">4分钟前</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="profile.html">
-                                        <div>
-                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
-                                            <span class="pull-right text-muted small">12分钟前</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="notifications.html">
-                                            <strong>查看所有 </strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown hidden-xs">
-                            <a class="right-sidebar-toggle" aria-expanded="false"><i class="fa fa-gear fa-spin"></i>设置</a>
-                        </li>
-                    </ul>
-            		--%>
             		<ul class="nav navbar-top-links navbar-right">
             			<li class="dropdown hidden-xs">
             				<a href="logon/logout">安全退出</a>
@@ -312,24 +218,6 @@
 		</div>
 	</div>
 	
-	<div class="modal inmodal" id="suggest" tabindex="-1" role="dialog" aria-hidden="true">
-		<form class="modal-dialog" id="suggestion">
-			<div class="modal-content animated bounceInRight">
-				<div class="modal-body" style="height: 100%">
-					<div class="form-group">
-						<textarea id="message" name="message" class="form-control"
-							style="height: 230px; margin-top: 20px;resize: none"></textarea>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" onclick="addsuggestion()">确定</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	
-	
 	<script src="resources/js/jquery.min.js?v=2.1.4"></script>
 	<script src="resources/js/bootstrap.min.js?v=3.3.6"></script>
 	<script src="resources/js/content.min.js?v=1.0.0"></script>
@@ -341,15 +229,9 @@
 	<script src="resources/js/plugins/pace/pace.min.js"></script>
 	<script src="resources/js/plugins/chosen/chosen.jquery.js"></script>
 	<script src="resources/js/plugins/iCheck/icheck.min.js"></script>
-	<script src="resources/js/plugins/validate/jquery.validate.min.js"></script>
-	<script src="resources/js/plugins/validate/messages_zh.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.selecter').chosen();
-			$("#suggestion").validate({
-				rules:{message:"required"},
-				messages:{message:"反馈的意见不能为空！"}
-			});
 			$("#nowtime").html(formatDate((new Date()).getTime()).substr(0,16));
 		});	
 		setInterval(function() {
@@ -378,32 +260,6 @@
 					console.log(redata);
 				}
 			});
-
-		}
-		function showsuggest(obj) {
-			$("#suggest").modal("show");
-		}
-		function addsuggestion(){
-			if(!$("#suggestion").valid()){
-				return ;
-			}
-			var message=$("#message").val();
-			$("#suggest").modal("hide");
-			$.ajax({
-				type: 'post',
-				url: './setting/suggest',
-				data: {
-					message:message
-				},
-				success:function(redata) {
-					if(redata=='success') {
-						alert("发送成功，感谢您的反馈！");
-					}
-				},
-				error:function(redata) {
-					console.log(redata);
-				}
-			});	 
 		}
 		
 		function formatDate(timestamp) { 
