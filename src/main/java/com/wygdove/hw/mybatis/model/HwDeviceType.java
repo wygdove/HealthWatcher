@@ -5,6 +5,8 @@ public class HwDeviceType {
 
     private String deviceType;
 
+    private String deviceTypeDescription;
+
     private Boolean isvalid;
 
     public Integer getDeviceTypeId() {
@@ -21,6 +23,14 @@ public class HwDeviceType {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getDeviceTypeDescription() {
+        return deviceTypeDescription;
+    }
+
+    public void setDeviceTypeDescription(String deviceTypeDescription) {
+        this.deviceTypeDescription = deviceTypeDescription;
     }
 
     public Boolean getIsvalid() {

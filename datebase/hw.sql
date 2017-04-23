@@ -30,20 +30,21 @@ DROP TABLE IF EXISTS hw_device_type;
 CREATE TABLE hw_device_type (
 	device_type_id int(10) NOT NULL AUTO_INCREMENT,
 	device_type varchar(255) DEFAULT NULL,
+	device_type_description varchar(255) DEFAULT NULL,
 	isvalid boolean DEFAULT TRUE,
 	PRIMARY KEY (device_type_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into hw_device_type values(1,'bodytemperature',TRUE);
-insert into hw_device_type values(2,'pulse',TRUE);
-insert into hw_device_type values(3,'breathe',TRUE);
-insert into hw_device_type values(4,'bloodoxygen',TRUE);
-insert into hw_device_type values(5,'ecg',TRUE);
-insert into hw_device_type values(6,'pm25i',TRUE);
-insert into hw_device_type values(7,'pm25o',TRUE);
-insert into hw_device_type values(8,'wenshidu',TRUE);
-insert into hw_device_type values(9,'light',FALSE);
-insert into hw_device_type values(10,'camera',TRUE);
+insert into hw_device_type values(1,'bodytemperature','体温传感器',TRUE);
+insert into hw_device_type values(2,'pulse','脉搏传感器',TRUE);
+insert into hw_device_type values(3,'breathe','呼吸传感器',TRUE);
+insert into hw_device_type values(4,'bloodoxygen','血氧传感器',TRUE);
+insert into hw_device_type values(5,'ecg','心电传感器',TRUE);
+insert into hw_device_type values(6,'pm25i','室内PM2.5传感器',TRUE);
+insert into hw_device_type values(7,'pm25o','室外PM2.5传感器',TRUE);
+insert into hw_device_type values(8,'wenshidu','温湿度传感器',TRUE);
+insert into hw_device_type values(9,'light','光照传感器',FALSE);
+insert into hw_device_type values(10,'camera','摄像头',TRUE);
 
 
 

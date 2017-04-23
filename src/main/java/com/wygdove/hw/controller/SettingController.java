@@ -21,9 +21,11 @@ import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.DateUtil;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
+import com.wygdove.hw.service.setting.IDeviceService;
 import com.wygdove.hw.service.setting.IEnvicityService;
 import com.wygdove.hw.service.setting.IPersonalInfoService;
 import com.wygdove.hw.service.setting.ISuggestService;
+import com.wygdove.hw.vo.DeviceTableVo;
 import com.wygdove.hw.vo.EnvicityVo;
 
 @Controller
@@ -37,6 +39,8 @@ public class SettingController {
 	private IEnvicityService envicityService;
 	@Resource
 	private ISuggestService suggestService;
+	@Resource
+	private IDeviceService deviceService;
 	
 	@RequestMapping(value="addsuggest",produces="text/html;charset=UTF-8")
 	@ResponseBody
@@ -150,8 +154,18 @@ public class SettingController {
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
-		map.addAttribute("hwuser",hwuser);
 		return UriConstant.SETTING_DEVICE;
 	}
+	
+	@RequestMapping(value="getdevicelist",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<DeviceTableVo> getdevicelist(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/setting/getdevicelist");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		return deviceService.getdevices(hwuser);
+	}
+	
 	
 }

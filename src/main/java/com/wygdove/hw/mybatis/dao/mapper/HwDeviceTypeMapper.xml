@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.wygdove.hw.mybatis.model.HwDeviceType">
     <id column="device_type_id" jdbcType="INTEGER" property="deviceTypeId" />
     <result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+    <result column="device_type_description" jdbcType="VARCHAR" property="deviceTypeDescription" />
     <result column="isvalid" jdbcType="BIT" property="isvalid" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    device_type_id, device_type, isvalid
+    device_type_id, device_type, device_type_description, isvalid
   </sql>
   <select id="selectByExample" parameterType="com.wygdove.hw.mybatis.model.HwDeviceTypeExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wygdove.hw.mybatis.model.HwDeviceType">
-    insert into hw_device_type (device_type_id, device_type, isvalid
-      )
-    values (#{deviceTypeId,jdbcType=INTEGER}, #{deviceType,jdbcType=VARCHAR}, #{isvalid,jdbcType=BIT}
-      )
+    insert into hw_device_type (device_type_id, device_type, device_type_description, 
+      isvalid)
+    values (#{deviceTypeId,jdbcType=INTEGER}, #{deviceType,jdbcType=VARCHAR}, #{deviceTypeDescription,jdbcType=VARCHAR}, 
+      #{isvalid,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.wygdove.hw.mybatis.model.HwDeviceType">
     insert into hw_device_type
@@ -111,6 +112,9 @@
       </if>
       <if test="deviceType != null">
         device_type,
+      </if>
+      <if test="deviceTypeDescription != null">
+        device_type_description,
       </if>
       <if test="isvalid != null">
         isvalid,
@@ -122,6 +126,9 @@
       </if>
       <if test="deviceType != null">
         #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTypeDescription != null">
+        #{deviceTypeDescription,jdbcType=VARCHAR},
       </if>
       <if test="isvalid != null">
         #{isvalid,jdbcType=BIT},
@@ -143,6 +150,9 @@
       <if test="record.deviceType != null">
         device_type = #{record.deviceType,jdbcType=VARCHAR},
       </if>
+      <if test="record.deviceTypeDescription != null">
+        device_type_description = #{record.deviceTypeDescription,jdbcType=VARCHAR},
+      </if>
       <if test="record.isvalid != null">
         isvalid = #{record.isvalid,jdbcType=BIT},
       </if>
@@ -155,6 +165,7 @@
     update hw_device_type
     set device_type_id = #{record.deviceTypeId,jdbcType=INTEGER},
       device_type = #{record.deviceType,jdbcType=VARCHAR},
+      device_type_description = #{record.deviceTypeDescription,jdbcType=VARCHAR},
       isvalid = #{record.isvalid,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,6 +177,9 @@
       <if test="deviceType != null">
         device_type = #{deviceType,jdbcType=VARCHAR},
       </if>
+      <if test="deviceTypeDescription != null">
+        device_type_description = #{deviceTypeDescription,jdbcType=VARCHAR},
+      </if>
       <if test="isvalid != null">
         isvalid = #{isvalid,jdbcType=BIT},
       </if>
@@ -175,6 +189,7 @@
   <update id="updateByPrimaryKey" parameterType="com.wygdove.hw.mybatis.model.HwDeviceType">
     update hw_device_type
     set device_type = #{deviceType,jdbcType=VARCHAR},
+      device_type_description = #{deviceTypeDescription,jdbcType=VARCHAR},
       isvalid = #{isvalid,jdbcType=BIT}
     where device_type_id = #{deviceTypeId,jdbcType=INTEGER}
   </update>

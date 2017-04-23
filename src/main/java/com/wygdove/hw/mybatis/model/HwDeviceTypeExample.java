@@ -234,6 +234,76 @@ public class HwDeviceTypeExample {
             return (Criteria) this;
         }
 
+        public Criteria andDeviceTypeDescriptionIsNull() {
+            addCriterion("device_type_description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionIsNotNull() {
+            addCriterion("device_type_description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionEqualTo(String value) {
+            addCriterion("device_type_description =", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionNotEqualTo(String value) {
+            addCriterion("device_type_description <>", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionGreaterThan(String value) {
+            addCriterion("device_type_description >", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("device_type_description >=", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionLessThan(String value) {
+            addCriterion("device_type_description <", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("device_type_description <=", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionLike(String value) {
+            addCriterion("device_type_description like", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionNotLike(String value) {
+            addCriterion("device_type_description not like", value, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionIn(List<String> values) {
+            addCriterion("device_type_description in", values, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionNotIn(List<String> values) {
+            addCriterion("device_type_description not in", values, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionBetween(String value1, String value2) {
+            addCriterion("device_type_description between", value1, value2, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceTypeDescriptionNotBetween(String value1, String value2) {
+            addCriterion("device_type_description not between", value1, value2, "deviceTypeDescription");
+            return (Criteria) this;
+        }
+
         public Criteria andIsvalidIsNull() {
             addCriterion("isvalid is null");
             return (Criteria) this;

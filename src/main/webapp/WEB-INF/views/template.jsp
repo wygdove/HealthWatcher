@@ -19,17 +19,22 @@
 
 </head>
 <body class="gray-bg">
-	<div class="wrapper wrapper-content animated fadeIn">
+	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="tabs-container">
-					<div class="panel-body">
+			<div class="col-sm-12">
+                <div class="widget white-bg">
+					<div class="row">
+						<div class="col-xs-12 text-left">
+							<span><big><big></big></big></span>
+						</div>
+					</div>
+					<div class="row">
 						${str }
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+    </div>
 
 	<script src="resources/js/jquery.min.js?v=2.1.4"></script>
 	<script src="resources/js/bootstrap.min.js?v=3.3.6"></script>
