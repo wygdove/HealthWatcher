@@ -33,7 +33,7 @@
 					<li class="nav-header">
 						<div class="dropdown profile-element">
 							<span>
-								<img alt="image" class="img-circle" src="resources/img/profile_small.jpg" />
+								<img alt="image" class="img-circle" src="resources/img/useravatar/defaultavator.jpg" />
 							</span>
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear">
