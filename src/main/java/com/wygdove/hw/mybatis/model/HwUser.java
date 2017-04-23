@@ -23,6 +23,8 @@ public class HwUser {
 
     private Date updatedAt;
 
+    private String userAvatar;
+
     public Integer getUserId() {
         return userId;
     }
@@ -101,5 +103,13 @@ public class HwUser {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 }

@@ -12,6 +12,7 @@
     <result column="city_name" jdbcType="VARCHAR" property="cityName" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     user_id, login_account, display_name, account_type, password, status, city_code, 
-    city_name, created_at, updated_at
+    city_name, created_at, updated_at, user_avatar
   </sql>
   <select id="selectByExample" parameterType="com.wygdove.hw.mybatis.model.HwUserExample" resultMap="BaseResultMap">
     select
@@ -106,24 +107,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wygdove.hw.mybatis.model.HwUser">
-    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into hw_user (login_account, display_name, account_type, 
-      password, status, city_code, 
-      city_name, created_at, updated_at
-      )
-    values (#{loginAccount,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, #{accountType,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
-      #{cityName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
-      )
+    insert into hw_user (user_id, login_account, display_name, 
+      account_type, password, status, 
+      city_code, city_name, created_at, 
+      updated_at, user_avatar)
+    values (#{userId,jdbcType=INTEGER}, #{loginAccount,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
+      #{accountType,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{userAvatar,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wygdove.hw.mybatis.model.HwUser">
-    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into hw_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
       <if test="loginAccount != null">
         login_account,
       </if>
@@ -151,8 +149,14 @@
       <if test="updatedAt != null">
         updated_at,
       </if>
+      <if test="userAvatar != null">
+        user_avatar,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="loginAccount != null">
         #{loginAccount,jdbcType=VARCHAR},
       </if>
@@ -179,6 +183,9 @@
       </if>
       <if test="updatedAt != null">
         #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAvatar != null">
+        #{userAvatar,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="record.updatedAt != null">
         updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.userAvatar != null">
+        user_avatar = #{record.userAvatar,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -237,7 +247,8 @@
       city_code = #{record.cityCode,jdbcType=VARCHAR},
       city_name = #{record.cityName,jdbcType=VARCHAR},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
-      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      user_avatar = #{record.userAvatar,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,6 +283,9 @@
       <if test="updatedAt != null">
         updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="userAvatar != null">
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -285,7 +299,8 @@
       city_code = #{cityCode,jdbcType=VARCHAR},
       city_name = #{cityName,jdbcType=VARCHAR},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
-      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>
