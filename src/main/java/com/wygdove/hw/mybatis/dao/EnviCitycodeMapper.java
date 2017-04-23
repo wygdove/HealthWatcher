@@ -1,9 +1,12 @@
 package com.wygdove.hw.mybatis.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.wygdove.hw.mybatis.model.EnviCitycode;
 import com.wygdove.hw.mybatis.model.EnviCitycodeExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.wygdove.hw.mybatis.model.EnviCitycodeProvince;
 
 public interface EnviCitycodeMapper {
     long countByExample(EnviCitycodeExample example);
@@ -27,4 +30,6 @@ public interface EnviCitycodeMapper {
     int updateByPrimaryKeySelective(EnviCitycode record);
 
     int updateByPrimaryKey(EnviCitycode record);
+    
+    List<EnviCitycodeProvince> selectDistinctProvince();
 }

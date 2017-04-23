@@ -12,11 +12,27 @@ public class PersonalInfoServiceImpl implements IPersonalInfoService {
 
 	@Resource
 	private HwUserMapper hwuserMapper;
+	@Resource
+	private IEnvicityService envicityService;
 	
 	@Override
-	public String update(HwUser user) {
-		int res=hwuserMapper.updateByPrimaryKey(user);
-		return res>0?"success":"error";
+	public String update(HwUser user,String usernickname,String userpassword,String newpassword,String selectcity) {
+		String res="";
+		if(userpassword!=null&&!user.getPassword().equals(userpassword)) {
+			return "密码错误";
+		}
+		if(usernickname!=null) {
+			user.setDisplayName(usernickname);
+		}
+		if(newpassword!=null) {
+			user.setPassword(newpassword);
+		}
+		if(selectcity!=null) {
+			user.setCityCode(selectcity);
+			user.setCityName(envicityService.getname(selectcity));
+		}
+		res=hwuserMapper.updateByPrimaryKey(user)>0?"修改成功":"修改失败";
+		return res;
 	}
 
 	@Override

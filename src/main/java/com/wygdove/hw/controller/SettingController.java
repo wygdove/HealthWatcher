@@ -2,6 +2,7 @@ package com.wygdove.hw.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,9 @@ import com.wygdove.hw.common.constant.UriConstant;
 import com.wygdove.hw.common.utils.DateUtil;
 import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
+import com.wygdove.hw.service.setting.IEnvicityService;
 import com.wygdove.hw.service.setting.IPersonalInfoService;
+import com.wygdove.hw.vo.EnvicityVo;
 
 @Controller
 @RequestMapping("setting")
@@ -29,6 +32,8 @@ public class SettingController {
 	
 	@Resource
 	private IPersonalInfoService personalInfoService;
+	@Resource
+	private IEnvicityService envicityService;
 	
 	@RequestMapping("suggest")
 	@ResponseBody
@@ -48,11 +53,26 @@ public class SettingController {
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
+		EnvicityVo ecprocince=envicityService.getprovince(hwuser.getCityCode());
 		map.addAttribute("hwuser",hwuser);
+		map.addAttribute("hwuprovince",ecprocince);
+		map.addAttribute("ecprovinces",envicityService.getplist());
+		map.addAttribute("eccitys",envicityService.getlist(ecprocince.getEccode()));
 		return UriConstant.SETTING_PERSONAL;
 	}
 	
-	@RequestMapping("personalupdate")
+	@RequestMapping(value="geteclist",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<EnvicityVo> geteclist(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/setting/geteclist");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		String proven=request.getParameter("proven");
+		return envicityService.getlist(proven);
+	}
+	
+	@RequestMapping(value="personalupdate",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String personalupdate(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
 		_log.info("controller:/setting/personalupdate");
@@ -60,10 +80,12 @@ public class SettingController {
 		if(hwuser==null) return "";
 		
 		String usernickname=request.getParameter("usernickname");
+		String userpassword=request.getParameter("userpassword");
+		String newpassword=request.getParameter("newpassword");
 		String selectcity=request.getParameter("select_city");
-		_log.info("username:"+usernickname);
-		_log.info("selectcity:"+selectcity);
-		String script="<script>alert('"+usernickname+"');</script>";
+		
+		String res=personalInfoService.update(hwuser,usernickname,userpassword,newpassword,selectcity);
+		String script="<script>alert('"+res+"');</script>";
 //		return "success";
 		return script;
 	}

@@ -33,12 +33,12 @@
 						</div>
 					</div>
 					<div class="row">
-						<form class="form-horizontal m-t" novalidate="novalidate" action="./setting/personalupdate" method="post" target="resiframe" >
+						<form id="updageinfoform" class="form-horizontal m-t" action="./setting/personalupdate" method="post" target="resiframe" >
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">头像：</label>
                                 <div class="col-sm-3">
                                     <div class="avatar-view" title="更换头像">
-										<img id="personalavator" src="resources/img/useravatar/defaultavator.jpg" alt="Avatar">
+										<img id="personalavator" src="${hwuser.userAvatar }" alt="Avatar">
 									</div>
 									<span id="avatarsuccess" style="display:none;font-size:8px;margin-top:5px;margin-left:5px;color:red;">修改成功，下次登录生效！</span>
                                 </div>
@@ -46,7 +46,6 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">用户名：</label>
                                 <div class="col-sm-3">
-                                <input id="userid" name="userid" class="form-control" type="text" value="${hwuser.userId }" style="display:none;">
                                     <input id="username" name="username" class="form-control" type="text" value="${hwuser.loginAccount }" disabled="disabled">
                                 </div>
                             </div>
@@ -79,15 +78,20 @@
                                 <label class="col-sm-3 control-label">所在地区：</label>
 								<div class="col-sm-9">
 									<select class="selecter" id="select_province" name="select_province" style="width:120px;">
-										<option value="beijing">北京市</option>
-										<option value="tianjin">河北省</option>
-										<option value="kaifeng">河南省</option>
+										<c:if test="${!empty hwuprovince }">
+											<option value="${hwuprovince.eccode }" selected="selected">${hwuprovince.ecname }</option>
+										</c:if>
+										<c:forEach items="${ecprovinces }" var="ecplist">
+											<option value="${ecplist.eccode }">${ecplist.ecname }</option>
+										</c:forEach>
 									</select>
 									<select class="selecter" id="select_city" name="select_city" style="width:130px;">
-										<option value="${hwuser.cityCode }" selected="selected">${hwuser.cityName }</option>
-										<option value="beijing">北京</option>
-										<option value="tianjin">天津</option>
-										<option value="kaifeng">开封</option>
+										<c:if test="${!empty hwuser.cityCode }">
+											<option value="${hwuser.cityCode }" selected="selected">${hwuser.cityName }</option>
+										</c:if>
+										<c:forEach items="${eccitys }" var="ecclist">
+											<option value="${ecclist.eccode }">${ecclist.ecname }</option>
+										</c:forEach>
 									</select>
 								</div>
                             </div>
@@ -172,65 +176,113 @@
 	<script type="text/javascript">
     $(document).ready(function() {
 		$('.selecter').chosen();
+		initvalidate();
 		initform();
 		initavatar();
     });
     
-    function initform() {
-    	$("#agree").on("click",function() {
-			if($("#agree")[0].checked) {
-				$("#submitbtn").attr("disabled",false);
-			}else {
-				$("#submitbtn").attr("disabled",true);
+    function initvalidate() {
+		$("#updageinfoform").validate({
+			rules:{
+				usernickname:{required:true,minlength:2},
+				userpassword:{required:true},
+				newpassword:{minlength:6},
+				confirmnewpassword:{minlength:6,equalTo:"#newpassword"},
+				agree:"required"
+			},
+			messages:{
+				usernickname:{
+					required:"昵称不能为空",
+					minlength:"用户名必需由两个字母组成"
+				},
+				userpassword:{required:"请输入密码"},
+				newpassword:{minlength:"密码长度不能小于6 个字符"},
+				confirmnewpassword:{
+					minlength:"密码长度不能小于6 个字符",
+					equalTo:"两次密码输入不一致"
+				},
+				agree:"请接受我们的声明"
 			}
-    	});
-    }
+		});
+	}
 
-    function initavatar() {
-    	$("#personalavator").click(function() {
-    		$("#avatar-modal").modal('show');
-    	});
+	function initform() {
+		$("#agree").on("click", function() {
+			if($("#agree")[0].checked) {
+				$("#submitbtn").attr("disabled", false);
+			} else {
+				$("#submitbtn").attr("disabled", true);
+			}
+		});
+		$("#select_province").on("change",function() {
+			$.ajax({
+				cache:true,
+				async:false,
+				type:'post',
+				url:'./setting/geteclist',
+				data:{
+					proven:$("#select_province").val()
+				},
+				success:function(redata){
+					$("#select_city").children("option").remove();
+					var addoption="";
+					$(redata).each(function(redata) {
+						addoption=addoption+'<option value="'+this.eccode+'">'+this.ecname+'</option>'
+					});
+					$("#select_city").append(addoption);
+					$("#select_city").trigger("chosen:updated");
+				},
+				error:function(redata) {
+					$("#select_city").trigger("chosen:updated");
+					console.log(redata);
+				}
+			});
+		});
+	}
 
-		$('#avatar-modal').on('shown.bs.modal',function() {
+	function initavatar() {
+		$("#personalavator").click(function() {
+			$("#avatar-modal").modal('show');
+		});
+
+		$('#avatar-modal').on('shown.bs.modal', function() {
 // 			var imgurl=$("#personalavator").attr('src');
 // 			startCropper(imgurl);
-			$("#avatarWrapper").attr("src",'');
+			$("#avatarWrapper").attr("src", '');
 			$(".avatar-preview").html('');
 			$("#avatarsuccess").hide();
-		}).on('hidden.bs.modal',function() {
+		}).on('hidden.bs.modal', function() {
 			stopCropper();
 			var file=getImgFile();
-			if(file!=null) {
+			if(file != null) {
 				uploadavatar(file);
 			}
 		});
 
-		$("#avatarInput").on('change',function() {
+		$("#avatarInput").on('change', function() {
 			var file=getImgFile();
-			if(file!=null) {
+			if(file != null) {
 				var imgurl=URL.createObjectURL(file);
-				$("#avatarWrapper").attr("src",imgurl);
+				$("#avatarWrapper").attr("src", imgurl);
 				$(".avatar-preview").html('<img src="'+imgurl+'">');
-// 				startCropper(imgurl);
+				// 				startCropper(imgurl);
 			}
 		});
 	}
 	function startCropper(imgurl) {
 		$("#avatarWrapper").cropper('destroy');
-		$("#avatarWrapper").cropper({
-			aspectRatio:1,
-			preview:$(".avatar-preview").selector,
-			crop:function(e) {
-				var json=[
-					'{"x":'+e.x,
-					'"y":'+e.y,
-					'"height":'+e.height,
-					'"width":'+e.width,
-					'"rotate":'+e.rotate+'}'
-				].join();
-				$(".avatar-data").val(json);
-			}
-		});
+		$("#avatarWrapper").cropper(
+				{
+					aspectRatio: 1,
+					preview: $(".avatar-preview").selector,
+					crop: function(e) {
+						var json=[ '{"x":' + e.x, '"y":' + e.y,
+								'"height":' + e.height,
+								'"width":' + e.width,
+								'"rotate":' + e.rotate + '}' ].join();
+						$(".avatar-data").val(json);
+					}
+				});
 //		if(this.active) {
 //			$("#avatarWrapper").cropper('replace',imgurl);
 //		} else {
@@ -242,48 +294,47 @@
 		$(".avatar-preview").empty();
 		$('#imgavator').cropper('destroy');
 	}
-	
-	
+
 	function uploadavatar(imgdata) {
 // 		console.log($("#avatar-form"));
 		var form=new FormData();
-		form.append("imgfile",imgdata);
+		form.append("imgfile", imgdata);
 		try {
 			var xhr=new XMLHttpRequest();
-		    xhr.open("post",'./setting/uploadfile',true);
-		    xhr.onload=function() {
-				if(xhr.status==200) {
+			xhr.open("post", './setting/uploadfile', true);
+			xhr.onload=function() {
+				if(xhr.status == 200) {
 					var redata=xhr.response;
 					// console.log(redata);
-					$("#personalavator").attr("src","resources/img/useravatar/"+redata);
+					$("#personalavator").attr("src",
+							"resources/img/useravatar/" + redata);
 					updateavatar();
 				}
-		    };
-		    xhr.send(form);
-		}
-		catch(err){
+			};
+			xhr.send(form);
+		} catch(err) {
 			alert("上传失败！");
 			console.log(err);
 		}
 	}
-	
+
 	function updateavatar() {
 		var imgurl=$("#personalavator").attr('src');
 		$.ajax({
 			type: 'post',
 			url: './setting/updateavatar',
 			data: {
-				avatarfile:imgurl
+				avatarfile: imgurl
 			},
-			success:function(redata) {
-				if(redata=='success') {
+			success: function(redata) {
+				if(redata == 'success') {
 					alert("头像更新成功，下次登录生效！");
 				}
 			},
-			error:function(redata) {
+			error: function(redata) {
 				console.log(redata);
 			}
-		});	 
+		});
 	}
 
 	function getImgFile() {

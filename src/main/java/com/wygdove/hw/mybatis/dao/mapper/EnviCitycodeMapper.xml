@@ -12,6 +12,10 @@
     <result column="NATIONEN" jdbcType="VARCHAR" property="nationen" />
     <result column="NATIONCN" jdbcType="VARCHAR" property="nationcn" />
   </resultMap>
+  <resultMap id="ProvinceResultMap" type="com.wygdove.hw.mybatis.model.EnviCitycodeProvince">
+    <result column="PROVEN" jdbcType="VARCHAR" property="proven" />
+    <result column="PROVCN" jdbcType="VARCHAR" property="provcn" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -73,6 +77,10 @@
   <sql id="Base_Column_List">
     AREAID, NAMEEN, NAMECN, DISTRICTEN, DISTRICTCN, PROVEN, PROVCN, NATIONEN, NATIONCN
   </sql>
+  <select id="selectDistinctProvince" resultMap="ProvinceResultMap">
+    select distinct proven,provcn
+    from envi_citycode
+  </select>
   <select id="selectByExample" parameterType="com.wygdove.hw.mybatis.model.EnviCitycodeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
