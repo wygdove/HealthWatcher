@@ -2,6 +2,8 @@ package com.wygdove.hw.service.setting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
@@ -67,13 +69,100 @@ public class DeviceServiceImpl implements IDeviceService {
 	}
 
 	@Override
-	public String updatedevice(int deviceid) {
-		return null;
+	public Map<String,String> adddevice(HwUser user,String devname,String devtype,String devflag,String devisdefault) {
+		Map<String,String> resmap=new TreeMap<String,String>();
+		HwDeviceExample example=new HwDeviceExample();
+		HwDeviceExample.Criteria criteria=example.createCriteria();
+		criteria.andUserIdEqualTo(user.getUserId());
+		criteria.andDnameEqualTo(devname);
+		List<HwDevice> hdlist=hwDeviceMapper.selectByExample(example);
+		for(HwDevice hd:hdlist) {
+			if(hd.getDname().equals(devname)) {
+				resmap.put("recode","设备名重复");
+				return resmap;
+			}
+		}
+		criteria=example.createCriteria();
+		criteria.andUserIdEqualTo(user.getUserId());
+		criteria.andDtypeEqualTo(Integer.parseInt(devtype));
+		criteria.andDflagEqualTo(devflag);
+		List<HwDevice> hdlist2=hwDeviceMapper.selectByExample(example);
+		for(HwDevice hd:hdlist2) {
+			if(hd.getDflag().equals(devflag)) {
+				resmap.put("recode","设备号重复");
+				return resmap;
+			}
+		}
+		
+		HwDevice hd=new HwDevice();
+		hd.setDname(devname);
+		hd.setDtype(Integer.parseInt(devtype));
+		hd.setDflag(devflag);
+		hd.setIsdefault(devisdefault.equals("true")?true:false);
+		hd.setUserId(user.getUserId());
+		if(hwDeviceMapper.insert(hd)>0) {
+			criteria=example.createCriteria();
+			criteria.andUserIdEqualTo(user.getUserId());
+			criteria.andDtypeEqualTo(Integer.parseInt(devtype));
+			criteria.andDflagEqualTo(devflag);
+			List<HwDevice> hdlist3=hwDeviceMapper.selectByExample(example);
+			if(hdlist3!=null&&hdlist3.size()>0) {
+				Integer devid=hdlist3.get(0).getDeviceId();
+				if(devisdefault.equals("true")) {
+					this.updatedefault(user,devid);
+				}
+				resmap.put("recode","success");
+				resmap.put("redtype",this.getdtdes(Integer.parseInt(devtype)));
+				resmap.put("redid",""+devid);
+				return resmap;
+			}
+		}
+		resmap.put("recode","未知错误");
+		return resmap;
 	}
 
 	@Override
-	public String adddevice() {
-		return null;
+	public Map<String,String> updatedevice(HwUser user,String devid,String devname,String devtype,String devflag,String devisdefault) {
+		if(devtype.equals(""))devtype="1";
+		Map<String,String> resmap=new TreeMap<String,String>();
+		HwDevice hd=new HwDevice();
+		hd.setDeviceId(Integer.parseInt(devid));
+		hd.setDname(devname);
+		hd.setDtype(Integer.parseInt(devtype));
+		hd.setDflag(devflag);
+		hd.setIsdefault(devisdefault=="true"?true:false);
+		hd.setUserId(user.getUserId());
+		if(hwDeviceMapper.updateByPrimaryKey(hd)>0) {
+			if(devisdefault.equals("true")) {
+				this.updatedefault(user,Integer.parseInt(devid));
+			}
+			resmap.put("recode","success");
+		} else {
+			resmap.put("recode","未知错误");
+		}
+		return resmap;
+	}
+	
+	private void updatedefault(HwUser user,Integer devid) {
+		HwDeviceExample example=new HwDeviceExample();
+		HwDeviceExample.Criteria criteria=example.createCriteria();
+		criteria.andUserIdEqualTo(user.getUserId());
+		List<HwDevice> hdlist=hwDeviceMapper.selectByExample(example);
+		for(HwDevice hd:hdlist) {
+			if(hd.getDeviceId().equals(devid)) {
+				hd.setIsdefault(true);
+			}
+			else {
+				hd.setIsdefault(false);
+			}
+			hwDeviceMapper.updateByPrimaryKey(hd);
+		}
+		
+	}
+
+	@Override
+	public String deletedevice(String devid) {
+		return hwDeviceMapper.deleteByPrimaryKey(Integer.parseInt(devid))>0?"success":"error";
 	}
 
 }

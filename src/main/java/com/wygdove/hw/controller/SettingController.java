@@ -3,6 +3,8 @@ package com.wygdove.hw.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -154,6 +156,7 @@ public class SettingController {
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
+		map.addAttribute("devicetypes",deviceService.getdtypes());
 		return UriConstant.SETTING_DEVICE;
 	}
 	
@@ -166,6 +169,36 @@ public class SettingController {
 		
 		return deviceService.getdevices(hwuser);
 	}
-	
-	
+	@RequestMapping(value="savedevice",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Map<String,String> savedevice(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/setting/savedevice");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		String operate=request.getParameter("operate");
+		String devid=request.getParameter("devid");
+		String devname=request.getParameter("devname");
+		String devtype=request.getParameter("devtype");
+		String devflag=request.getParameter("devflag");
+		String devisdefault=request.getParameter("devisdefault");
+		
+		Map<String,String> resmap=new TreeMap<String,String>();
+		if(operate.equals("add")) {
+			resmap=deviceService.adddevice(hwuser,devname,devtype,devflag,devisdefault);
+		}else if(operate.equals("update")) {
+			resmap=deviceService.updatedevice(hwuser,devid,devname,devtype,devflag,devisdefault);
+		}
+		return resmap;
+	}
+	@RequestMapping(value="deletedevice",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String deletedevice(HttpServletRequest request,HttpServletResponse response) {
+		_log.info("controller:/setting/deletedevice");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return null;
+		
+		String deviceid=request.getParameter("deviceid");
+		return deviceService.deletedevice(deviceid);
+	}
 }

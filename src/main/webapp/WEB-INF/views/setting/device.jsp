@@ -12,6 +12,7 @@
 <base href="<%=basePath%>">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="resources/css/plugins/chosen/chosen.css" rel="stylesheet">
 <link href="resources/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 <link href="resources/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 <link href="resources/css/animate.min.css" rel="stylesheet">
@@ -42,7 +43,7 @@
 							<span><big><big>设备管理</big></big></span>
 						</div>
 						<div class="col-xs-2 text-right">
-							<button class="btn btn-primary" onclick="adddevice()">添加设备</button>
+							<button id="btnadd" class="btn btn-primary">添加设备</button>
 						</div>
 					</div>
 					<div class="row">
@@ -52,17 +53,75 @@
 			</div>
 		</div>
     </div>
-
+    
+	<div class="modal inmodal" id="savedmodal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content animated bounceInRight">
+				<div class="modal-body" style="height:250px">
+					<form class="form-horizontal m-t">
+						<div class="form-group" style="display:none">
+							<input id="tindex" name="tindex" class="form-control" type="text" value="" style="display:none;">
+							<input id="devid" name="devid" class="form-control" type="text" value="" style="display:none;">
+						</div>
+						<div class="form-group">
+	                        <label class="col-sm-3 control-label">设备名称：</label>
+	                        <div class="col-sm-5">
+	                            <input id="devname" name="devname" class="form-control" type="text" value="">
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                        <label class="col-sm-3 control-label">设备类型：</label>
+	                        <div class="col-sm-5">
+	                            <select class="selecter" id="devtype" name="devtype" style="width:205px;">
+									<c:forEach items="${devicetypes }" var="dtlist">
+										<option value="${dtlist.deviceTypeId }">${dtlist.deviceTypeDescription }</option>
+									</c:forEach>
+								</select>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                        <label class="col-sm-3 control-label">设备号：</label>
+	                        <div class="col-sm-5">
+	                            <input id="devflag" name="devflag" class="form-control" type="text" />
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                        <label class="col-sm-3 control-label">设备优先级：</label>
+	                        <div class="col-sm-5">
+	                            <select class="selecter" id="devisdefault" name="devisdefault" style="width:205px;">
+									<option value="false">非默认设备</option>
+									<option value="true">默认设备</option>
+								</select>
+	                        </div>
+	                    </div>
+	            	</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+					<button id="btnad" type="button" class="btn btn-primary">添加</button>
+					<button id="btnsd" type="button" class="btn btn-primary">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<script src="resources/js/jquery.min.js?v=2.1.4"></script>
 	<script src="resources/js/bootstrap.min.js?v=3.3.6"></script>
 	<script src="resources/js/content.min.js?v=1.0.0"></script>
     <script src="resources/js/qq-tajs-stats.js"></script>
+	<script src="resources/js/plugins/chosen/chosen.jquery.js"></script>
     <script src="resources/plugins/bootstraptable/bootstrap-table.js"></script>
     <script>
     var $dtable=$('#devicetable');
     $(document).ready(function() {
+    	$('.selecter').chosen();
+    	$("#devtype_chosen").width("205px");
+    	$("#devisdefault_chosen").width("205px");
     	inittable();
+    	initbtn();
     });
+    
     function inittable() {
     	var dict={"dname":"设备名称","dtype":"设备类型","dflag":"设备号","isdefault":"设备优先级"};
     	$dtable.bootstrapTable('destroy');
@@ -118,23 +177,7 @@
                 return html.join('');
             },
             columns:[
-    			{field:'dname',title:dict["dname"],sortable:true,align:'left',width:'200px',
-    				editable:{
-    					type:'text',
-    					title:dict["dname"],
-    					validate:function (value) {
-    						value=$.trim(value);
-    						if(!value) {
-    							return '设备名不能为空';
-    						}
-
-    						var data=$dtable.bootstrapTable('getData'),
-    						index=$(this).parents('tr').data('index');
-    						console.log(data[index]);
-    						return '';
-    					}
-    				}
-    			},
+    			{field:'dname',title:dict["dname"],sortable:true,align:'left',width:'200px'},
     			{field:'dtype',title:dict["dtype"],sortable:true,align:'left',width:'200px'},
     			{field:'dflag',title:dict["dflag"],sortable:true,align:'left',width:'200px'},
     			{field:'isdefault',title:dict["isdefault"],sortable:true,align:'left',width:'200px',
@@ -147,6 +190,7 @@
     		]
         });
     }
+    
     function operateFormatter(value,row,index) {
    		return [
    			'<a class="edit" href="javascript:void(0)" title="编辑该设备">',
@@ -161,23 +205,113 @@
     window.operateEvents={
    		'click .edit':function(e,value,row,index) {
    			// console.log(row);
-   			// row.dname="lalala";
-   			$dtable.bootstrapTable('updateRow',{index:index,row:row});
+   			$("#devid").val(row.deviceid);
+   			$("#devname").val(row.dname);
+   			$("#devtype").val(row.dtype);
+   			$("#devflag").val(row.dflag);
+   			$("#devisdefault").val(row.isdefault);
+   			$("#tindex").val(index)
+   			$("#btnad").hide();
+   			$("#btnsd").show();
+   			$("#savedmodal").modal("show");
    		},
    		'click .remove':function(e,value,row,index) {
    			// console.log(row);
-   			$dtable.bootstrapTable('remove',{field:'deviceid',values:[row.deviceid]});
+   			deldevice(row.deviceid);
    		}
    	};
-   	function adddevice() {
-		$dtable.bootstrapTable('append',[{
-			deviceid:(Math.random()+1000)/10,
-			dname:'testname',
-			dtype:'testtype',
-			dflag:'testflag',
-			isdefault:false,
-        }]);
+   	
+    function initbtn() {
+    	$("#btnadd").click(function() {
+    		cleardevform();
+    		$("#savedmodal").modal("show");
+    	});
+    	$("#btnad").click(function() {
+    		saverequest('add');
+    	});
+    	$("#btnsd").click(function() {
+    		saverequest('update');
+    	});
+    }
+   	
+   	function cleardevform() {
+   		$("#devid").val('');
+   		$("#devname").val('');
+		$("#devtype").trigger("chosen:updated");
+		$("#devflag").val('');
+		$("#devisdefault").trigger("chosen:updated");
+		$("#tindex").val('');
+		$("#btnad").show();
+		$("#btnsd").hide();
    	}
+   	
+   	function saverequest(operate) {
+   		var updateindex=$("#tindex").val(); 
+   		var row={
+			deviceid:$("#devid").val(),
+			dname:$("#devname").val(),
+			dtype:$("#devtype").val(),
+			dflag:$("#devflag").val(),
+			isdefault:$("#devisdefault").val()
+        };
+   		// console.log(row);
+   		$.ajax({
+   			type: 'post',
+   			url: './setting/savedevice',
+   			data: {
+   				operate:operate,
+   				devid:row.deviceid,
+   				devname:row.dname,
+   				devtype:row.dtype,
+   				devflag:row.dflag,
+   				devisdefault:row.isdefault
+   			},
+   			success:function(redata) {
+   				// console.log(redata);
+   				if(redata.recode=='success') {
+//    					if(operate=='update') {
+//    						$dtable.bootstrapTable('updateRow',{index:updateindex,row:row});
+//    					}else if(operate=='add') {
+//    						row.deviceid=redata.redid;
+//    						row.dtype=redata.redtype;
+//    						$dtable.bootstrapTable('append',[row]);
+//    					}
+					$dtable.bootstrapTable('refresh');
+   					cleardevform();
+   					$("#savedmodal").modal("hide");
+   				}
+   				else {
+   					alert(redata.recode);
+   				}
+   			},
+   			error:function(redata) {
+   				console.log(redata);
+   			}
+   		});
+   	}
+   	function deldevice(deviceid) {
+   		$.ajax({
+   			type: 'post',
+   			url: './setting/deletedevice',
+   			data: {
+   				deviceid:deviceid
+   			},
+   			success:function(redata) {
+   				// console.log(redata);
+   				if(redata=='success') {
+   		   			$dtable.bootstrapTable('remove',{field:'deviceid',values:[deviceid]});
+   				}
+   				else {
+   					alert(redata);
+   				}
+   			},
+   			error:function(redata) {
+   				console.log(redata);
+   			}
+   		});
+   	}
+		
+   	
     </script>
 </body>
 </html>
