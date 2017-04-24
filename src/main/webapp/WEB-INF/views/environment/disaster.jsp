@@ -81,12 +81,12 @@
 					<div class="row">
 						<table class="table text-center" frame="void">
 							<tr>
-								<th>时间</th>
-								<th>震源坐标</th>
-								<th>地点</th>
-								<th>震级</th>
-								<th>震源深度</th>
-								<th>距离</th>
+								<th style="text-align:center;">时间</th>
+								<th style="text-align:center;">震源坐标</th>
+								<th style="text-align:center;">地点</th>
+								<th style="text-align:center;">震级</th>
+								<th style="text-align:center;">震源深度</th>
+								<th style="text-align:center;">距离</th>
 							</tr>
 							<c:forEach items="${earthquakevos }" var="eqlist">
 								<tr>

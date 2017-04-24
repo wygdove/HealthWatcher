@@ -185,11 +185,13 @@ public class CityairServiceImpl implements ICityairService {
 					cv.setLongtitude(cimore.getString("longitude"));
 					cv.setLatitude(cimore.getString("latitude"));
 					JSONObject jcaqi=new JsonNode(EnvicloudUtil.getCityairLiveAQI(citycodes[i])).getObject();
-					if(jcaqi.getInt("rcode")==200&&jcaqi.getString("rdesc").equals("Success")) {
-						cv.setCityaqi(Integer.parseInt(jcaqi.getString("AQI")));
-						reslist.add(cv);
-						_log.info("cityairaqi:"+cv.getCitycode()+" "+cv.getCityname()+" ["
-								+cv.getLongtitude()+","+cv.getLatitude()+"] "+cv.getCityaqi());
+					if(jcaqi.has("rcode")&& jcaqi.has("rdesc")) {
+						if(jcaqi.getInt("rcode")==200&&jcaqi.getString("rdesc").equals("Success")) {
+							cv.setCityaqi(Integer.parseInt(jcaqi.getString("AQI")));
+							reslist.add(cv);
+//							_log.info("cityairaqi:"+cv.getCitycode()+" "+cv.getCityname()+" ["
+//									+cv.getLongtitude()+","+cv.getLatitude()+"] "+cv.getCityaqi());
+						}
 					}
 				}
 			}
