@@ -6,6 +6,7 @@ package com.wygdove.hw.common.constant;
  */
 public class UriConstant {
 	public static final String INDEX="index";
+	public static final String INDEX_CONTENT="content";
 	
 	public static final String LOGON_LOGIN="logon/login";
 	public static final String LOGON_DOLOGIN="logon/dologin";
@@ -34,6 +35,7 @@ public class UriConstant {
 	public static final String SETTING_DEVICE="setting/device";
 	public static final String SETTING_SUGGEST="setting/suggest";
 //	public static final String SETTING_="";
+
 
 //	public static final String _="";
 	

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wygdove.hw.common.constant.AttributeConstant;
 import com.wygdove.hw.common.constant.UriConstant;
+import com.wygdove.hw.common.utils.SessionUtil;
 import com.wygdove.hw.mybatis.model.HwUser;
 
 /**
@@ -31,5 +32,15 @@ public class MainController {
 			map.addAttribute("hwuser",hwuser);
 			return UriConstant.INDEX;
 		}
+	}
+	
+	
+	@RequestMapping("content")
+	public String content(HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+		_log.info("controller:/content");
+		HwUser hwuser=SessionUtil.getLoginUser(request);
+		if(hwuser==null) return UriConstant.LOGON_LOGIN;
+		
+		return UriConstant.INDEX_CONTENT;
 	}
 }

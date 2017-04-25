@@ -210,7 +210,7 @@
             </div>
 			<div class="row J_mainContent" id="content-main">
 				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" frameborder="0"
-					src="testproject?str=123" data-id="index" seamless></iframe>
+					src="content" data-id="index" seamless></iframe>
 			</div>
 			<div class="footer">
 				<div class="pull-right">&copy; 卫艳鸽  毕业设计</div>
