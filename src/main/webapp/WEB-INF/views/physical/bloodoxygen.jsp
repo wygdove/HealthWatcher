@@ -11,6 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8">
+<meta http-equiv="refresh" content="3600">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="resources/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 <link href="resources/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">

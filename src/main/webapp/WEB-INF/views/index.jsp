@@ -101,37 +101,8 @@
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">温湿度</span>
 							</a></li>
-							<%--
-							<li><a class="J_menuItem" href="indoor/camera">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">实时监控</span>
-							</a></li>
-							--%>
 						</ul>
 					</li>
-					<%--
-					<li>
-						<a href="#">
-							<i class="fa fa-sliders"></i>
-							<span class="nav-label">室内监测</span>
-							<span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="indoor/indoorbase">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">基础数据</span>
-							</a></li>
-							<li><a class="J_menuItem" href="#">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">人体感应</span>
-							</a></li>
-							<li><a class="J_menuItem" href="indoor/camera">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">实时监控</span>
-							</a></li>
-						</ul>
-					</li>
-					--%>
 					<li>
 						<a href="#">
 							<i class="fa fa-sliders"></i>
@@ -147,12 +118,6 @@
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">空气质量</span>
 							</a></li>
-							<%--
-							<li><a class="J_menuItem" href="environment/pollution">
-								<i class=" fa fa-cube"></i>
-								<span class="nav-label">环境污染</span>
-							</a></li>
-							--%>
 							<li><a class="J_menuItem" href="environment/disaster">
 								<i class=" fa fa-cube"></i>
 								<span class="nav-label">自然灾害</span>
@@ -237,30 +202,6 @@
 		setInterval(function() {
 			$("#nowtime").html(formatDate((new Date()).getTime()).substr(0,16));
 		}, 9988);
-		
-		function getcitylist() {
-			$.ajax({
-				cache:true,
-				async:false,
-				type:'post',
-				url:'./cityinfo/citylist',
-				data:{
-					userid:userid
-				},
-				success:function(redata) {
-					$("#select_city").children("option").remove();
-					var addoption="";
-					$(redata[1]).each(function(i) {
-						addoption=addoption+'<option value='+this.citycode+'>'+this.cityname+'</option>';
-					});
-					$("#select_city").append(addoption);
-					$("#select_city").trigger("chosen:updated");
-				},
-				error:function(redata) {
-					console.log(redata);
-				}
-			});
-		}
 		
 		function formatDate(timestamp) { 
 			var date=new Date(parseInt(timestamp));
