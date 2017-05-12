@@ -9,6 +9,7 @@ public class ImageUtil {
 			case "霾":res="mai";break;
 			case "阴":res="yin";break;
 			case "细雨":res="xiyu";break;
+			case "阵雨":res="leizhenyu";break;
 			case "雷阵雨":res="leizhenyu";break;
 			case "小雨":res="xiaoyu";break;
 			case "中雨":res="zhongyu";break;
