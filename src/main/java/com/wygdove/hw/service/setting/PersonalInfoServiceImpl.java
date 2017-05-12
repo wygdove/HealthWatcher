@@ -9,7 +9,6 @@ import com.wygdove.hw.mybatis.model.HwUser;
 
 @Service
 public class PersonalInfoServiceImpl implements IPersonalInfoService {
-
 	@Resource
 	private HwUserMapper hwuserMapper;
 	@Resource
@@ -24,14 +23,14 @@ public class PersonalInfoServiceImpl implements IPersonalInfoService {
 		if(usernickname!=null) {
 			user.setDisplayName(usernickname);
 		}
-		if(newpassword!=null) {
+		if(newpassword!=null&&!newpassword.equals("")) {
 			user.setPassword(newpassword);
 		}
 		if(selectcity!=null) {
 			user.setCityCode(selectcity);
 			user.setCityName(envicityService.getname(selectcity));
 		}
-		res=hwuserMapper.updateByPrimaryKey(user)>0?"修改成功":"修改失败";
+		res=hwuserMapper.updateByPrimaryKey(user)>0?"修改成功，下次登录生效！":"修改失败！";
 		return res;
 	}
 
