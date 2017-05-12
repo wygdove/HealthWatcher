@@ -74,7 +74,7 @@
 	                        <div class="col-sm-5">
 	                            <select class="selecter" id="devtype" name="devtype" style="width:205px;">
 									<c:forEach items="${devicetypes }" var="dtlist">
-										<option value="${dtlist.deviceTypeId }">${dtlist.deviceTypeDescription }</option>
+										<option data-typedes="${dtlist.deviceTypeDescription }" value="${dtlist.deviceTypeId }">${dtlist.deviceTypeDescription }</option>
 									</c:forEach>
 								</select>
 	                        </div>
@@ -204,15 +204,21 @@
    	}
     window.operateEvents={
    		'click .edit':function(e,value,row,index) {
-   			// console.log(row);
+   			console.log(row);
    			$("#devid").val(row.deviceid);
    			$("#devname").val(row.dname);
-   			$("#devtype").val(row.dtype);
    			$("#devflag").val(row.dflag);
-   			$("#devisdefault").val(row.isdefault);
    			$("#tindex").val(index)
    			$("#btnad").hide();
    			$("#btnsd").show();
+   			$("#devtype option").removeAttr("selected");  
+   			$("#devtype option[data-typedes='"+row.dtype+"']").attr("selected","selected");  
+   			$("#devtype").trigger("chosen:updated");
+   		    $("#devtype").width("205px");
+   			$("#devisdefault option").removeAttr("selected");  
+   			$("#devisdefault option[value='"+row.isdefault+"']").attr("selected","selected");  
+   			$("#devisdefault").trigger("chosen:updated");
+   		    $("#devisdefault_chosen").width("205px");
    			$("#savedmodal").modal("show");
    		},
    		'click .remove':function(e,value,row,index) {
@@ -237,12 +243,14 @@
    	function cleardevform() {
    		$("#devid").val('');
    		$("#devname").val('');
-		$("#devtype").trigger("chosen:updated");
 		$("#devflag").val('');
-		$("#devisdefault").trigger("chosen:updated");
 		$("#tindex").val('');
 		$("#btnad").show();
 		$("#btnsd").hide();
+		$("#devtype").trigger("chosen:updated");
+		$("#devisdefault").trigger("chosen:updated");
+		$("#devtype_chosen").width("205px");
+	    $("#devisdefault_chosen").width("205px");
    	}
    	
    	function saverequest(operate) {
