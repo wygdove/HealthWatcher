@@ -23,20 +23,22 @@ public class DisasterServiceImpl implements IDisasterService {
 		DisasterVo res=null;
 		try {
 			JSONObject aljson=new JsonNode(EnvicloudUtil.getAlert(cityname)).getObject();
-			if(aljson.getInt("rcode")==200&&aljson.getString("rdesc").equals("Success")) {
-				res=new DisasterVo();
-				JSONObject alj=aljson.getJSONArray("info").getJSONObject(0);
-				res.setAlTime(alj.getString("time"));
-				res.setAlDatasource(alj.getString("datasource"));
-				res.setAlStatus(alj.getString("status"));
-				res.setAlColor(alj.getString("color"));
-				res.setAlDescription(alj.getString("description"));
-				res.setAlProvince(alj.getString("province"));
-				res.setAlCity(alj.getString("city"));
-				res.setAlImagename(alj.getString("imagename"));
-			}
-			else {
-				_log.error(""+aljson.getInt("rcode")+"\t"+aljson.getString("rdesc"));
+			if(aljson.has("rcode")&&aljson.has("rdesc")) {
+				if(aljson.getInt("rcode")==200&&aljson.getString("rdesc").equals("Success")) {
+					res=new DisasterVo();
+					JSONObject alj=aljson.getJSONArray("info").getJSONObject(0);
+					res.setAlTime(alj.getString("time"));
+					res.setAlDatasource(alj.getString("datasource"));
+					res.setAlStatus(alj.getString("status"));
+					res.setAlColor(alj.getString("color"));
+					res.setAlDescription(alj.getString("description"));
+					res.setAlProvince(alj.getString("province"));
+					res.setAlCity(alj.getString("city"));
+					res.setAlImagename(alj.getString("imagename"));
+				}
+				else {
+					_log.error(""+aljson.getInt("rcode")+"\t"+aljson.getString("rdesc"));
+				}
 			}
 		}catch(UnirestException | IOException e) {
 			_log.error(e.getMessage());
