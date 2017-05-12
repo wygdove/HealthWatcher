@@ -57,7 +57,7 @@
 							</a>
 						</div>
 					</li>
-					<li>
+					<li class="active">
 						<a href="#">
 							<i class="fa fa-sliders"></i>
 							<span class="nav-label">体能监测</span>
@@ -210,7 +210,7 @@
             </div>
 			<div class="row J_mainContent" id="content-main">
 				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" frameborder="0"
-					src="content" data-id="index" seamless></iframe>
+					src="physical/bodytemperature" data-id="index" seamless></iframe>
 			</div>
 			<div class="footer">
 				<div class="pull-right">&copy; 卫艳鸽  毕业设计</div>
