@@ -20,44 +20,35 @@ import com.wygdove.hw.vo.PmInoutdoorVo;
 import com.wygdove.hw.vo.WenshiduVo;
 
 @Controller
-@RequestMapping("indoor2")
-public class Indoor2Controller {
-	private static final Logger _log = Logger.getLogger(Indoor2Controller.class);
+@RequestMapping("indoor")
+public class IndoorController {
+	private static final Logger _log = Logger.getLogger(IndoorController.class);
 
 	@Resource
 	private IIndoorbaseService indoorbaseService;
 	
 	@RequestMapping("pmio")
 	public String pmio(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-		_log.info("controller:/indoor2/pmio");
+		_log.info("controller:/indoor/pmio");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
-		return "indoor2/pmio";
+		return UriConstant.INDOOR_PMIO;
 	}
 	
 	@RequestMapping("wenshidu")
 	public String wenshidu(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-		_log.info("controller:/indoor2/wenshidu");
+		_log.info("controller:/indoor/wenshidu");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return UriConstant.LOGON_LOGIN;
 		
-		return "indoor2/wenshidu";
-	}
-	
-	@RequestMapping("camera")
-	public String camera(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-		_log.info("controller:/indoor2/camera");
-		HwUser hwuser=SessionUtil.getLoginUser(request);
-		if(hwuser==null) return UriConstant.LOGON_LOGIN;
-		
-		return "indoor2/camera";
+		return UriConstant.INDOOR_WENSHIDU;
 	}
 	
 	@RequestMapping("chart/wenshidu")
 	@ResponseBody
 	public List<WenshiduVo> wenshiduchart(HttpServletRequest request,HttpServletResponse response) {
-		_log.info("controller:/indoor2/chart/wenshidu");
+		_log.info("controller:/indoor/chart/wenshidu");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return null;
 		
@@ -69,7 +60,7 @@ public class Indoor2Controller {
 	@RequestMapping("chart/guangzhao")
 	@ResponseBody
 	public String guangzhaochart(HttpServletRequest request,HttpServletResponse response) {
-		_log.info("controller:/indoor2/chart/guangzhao");
+		_log.info("controller:/indoor/chart/guangzhao");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return null;
 		
@@ -80,7 +71,7 @@ public class Indoor2Controller {
 	@RequestMapping("chart/pmio")
 	@ResponseBody
 	public List<PmInoutdoorVo> pmiochart(HttpServletRequest request,HttpServletResponse response) {
-		_log.info("controller:/indoor2/chart/pmio");
+		_log.info("controller:/indoor/chart/pmio");
 		HwUser hwuser=SessionUtil.getLoginUser(request);
 		if(hwuser==null) return null;
 		

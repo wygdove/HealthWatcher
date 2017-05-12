@@ -59,7 +59,7 @@ function dopm25chart() {
 		cache: true,
 		async: false,
 		type: 'get',
-		url: './indoor2/chart/pmio',
+		url: './indoor/chart/pmio',
 		success:function(redata) {
 			var dx=[];
 			var di=[];

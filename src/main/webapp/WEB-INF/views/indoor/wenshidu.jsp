@@ -56,7 +56,7 @@ function dowsdchart() {
 		cache: true,
 		async: false,
 		type: 'get',
-		url: './indoor2/chart/wenshidu',
+		url: './indoor/chart/wenshidu',
 		success:function(redata) {
 			var dx=[];
 			var dw=[];

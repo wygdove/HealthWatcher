@@ -22,9 +22,9 @@ public class UriConstant {
 	public static final String PHYSICAL_BLOODOXYGEN="physical/bloodoxygen";
 	public static final String PHYSICAL_ELECTROCARDIOGRAM="physical/electrocardiogram";
 
-	public static final String INDOOR_BASE="indoor/indoorbase";
-	public static final String INDOOR_CAMERA="indoor/camera";
-//	public static final String INDOOR_="";
+	public static final String INDOOR_PMIO="indoor/pmio";
+	public static final String INDOOR_WENSHIDU="indoor/wenshidu";
+//	public static final String INDOOR_=;
 	
 	public static final String ENVIRONMENT_WEATHER="environment/weather";
 	public static final String ENVIRONMENT_CITYAIR="environment/cityair";
