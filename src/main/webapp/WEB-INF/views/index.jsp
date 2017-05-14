@@ -30,6 +30,34 @@
     cursor: pointer;
     overflow: hidden;
 }
+.navbar-default {
+	background-color: #DEDFDF;
+    color: #696969;
+}
+.nav-header a {
+    color: #696969;
+}
+.nav-header {
+    padding: 33px 25px;
+	background: currentColor;
+    background-color: #DEDFDF;
+}
+.nav>li.active {
+    border-left: 4px solid #19aa8d;
+    background: #E9E9E9;
+    color: #696969;
+}
+.nav-label {
+    color: #696969;
+}
+.nav>li.active>a {
+    background-color: #DEDFDF;
+	color: #696969;
+}
+.navbar-default .nav>li>a:focus, .navbar-default .nav>li>a:hover {
+    background-color: #DEDFDF;
+    color: #696969;
+}
 </style>
 </head>
 

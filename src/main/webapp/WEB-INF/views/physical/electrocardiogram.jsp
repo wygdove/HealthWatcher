@@ -89,23 +89,22 @@ function doecgchart() {
 function setecgchartdata(dataxaxis,dataseries) {
 	var ecgchart=echarts.init(document.getElementById("chart_ecg"));
 	ecgoption={
-		backgroundColor:'#0f375f',
 	    tooltip:{trigger:'axis'},
 	    grid:{left:'6%',right:'10%'},
 		xAxis:{
 		    name:'hh:mm:ss.mmm',
-			axisLine:{lineStyle:{color:'#ccc'}},
+			axisLine:{lineStyle:{color:'#363636'}},
 			data:dataxaxis
 		},
 		yAxis:{
 		    name:'mV',
 			splitLine:{show:false},
-			axisLine:{lineStyle:{color:'#ccc'}}
+			axisLine:{lineStyle:{color:'#363636'}}
 		},
 		series: [{
 			type:'line',
 			symbol:'none',
-			lineStyle:{normal:{color:'#ccc'}},
+			lineStyle:{normal:{color:'#363636'}},
 			data:dataseries
 		}]
 	};

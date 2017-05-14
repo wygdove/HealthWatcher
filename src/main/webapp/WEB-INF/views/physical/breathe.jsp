@@ -91,24 +91,23 @@ function setbreathechartdata(dataxaxis,dataseries) {
 	console.log(dataseries);
 	var breathechart=echarts.init(document.getElementById("chart_breathe"));
 	breatheoption={
-		backgroundColor:'#0f375f',
 		tooltip:{trigger:'axis'},
 	    grid:{left:'6%',right:'10%'},
 		xAxis:{
 		    name:'hh:mm:ss.mmm',
-			axisLine:{lineStyle:{color:'#ccc'}},
+			axisLine:{lineStyle:{color:'#363636'}},
 			data:dataxaxis
 		},
 		yAxis:{
 		    name:'mV',
 		    type:'value',
 			splitLine:{show:false},
-			axisLine:{lineStyle:{color:'#ccc'}}
+			axisLine:{lineStyle:{color:'#363636'}}
 		},
 		series: [{
 			type:'line',
-			lineStyle:{normal:{color:'#ccc'}},
-			itemStyle:{normal:{color:'#ccc'}},
+			lineStyle:{normal:{color:'#363636'}},
+			itemStyle:{normal:{color:'#363636'}},
 			data:dataseries
 		}]
 	};
